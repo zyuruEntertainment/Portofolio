@@ -1,3 +1,4 @@
+
 /* ========================================
    EXPLORE PAGE
    Shared styles are defined in style.css.
@@ -26,6 +27,9 @@
 .explore-intro {
     min-width: 0;
     max-width: 680px;
+
+    /* Align the title with the Index hero title. */
+    margin-top: 10px;
 }
 
 .explore-title {
@@ -41,7 +45,6 @@
     display: block;
 
     color: var(--muted);
-
     font-weight: 450;
     letter-spacing: -0.065em;
 }
@@ -56,8 +59,6 @@
     font-weight: 400;
     line-height: 1.65;
 }
-
-/* Small detail under the description */
 
 .explore-caption {
     display: flex;
@@ -83,7 +84,6 @@
 
 /* ========================================
    NAVIGATION CARDS
-   Visual previews only. Not clickable.
 ======================================== */
 
 .explore-navigation {
@@ -238,8 +238,6 @@
     transform: translate(4px, -4px);
 }
 
-/* Press feedback is purely visual. No navigation occurs. */
-
 .explore-card:active {
     transform: translateY(-1px);
     box-shadow: none;
@@ -259,6 +257,7 @@
 
     .explore-intro {
         max-width: 720px;
+        margin-top: 0;
     }
 
     .explore-title {
@@ -277,10 +276,6 @@
 
     .explore-card-title {
         font-size: 22px;
-    }
-
-    .explore-card-description {
-        font-size: 12px;
     }
 
     .explore-card-bottom {
@@ -335,10 +330,6 @@
 
     .explore-card-title {
         font-size: 23px;
-    }
-
-    .explore-card-description {
-        font-size: 12px;
     }
 
     .explore-card-icon {

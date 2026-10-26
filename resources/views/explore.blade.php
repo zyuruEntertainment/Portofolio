@@ -89,9 +89,7 @@
                 </h1>
 
                 <p class="explore-description">
-                    Get to know the developer, explore the projects,
-                    and discover the places where I share my work.
-                    One step at a time, from ideas to reality.
+                    Get to know the developer, explore the projects, and discover where I share my work. Every idea is a step toward learning, creating, and turning concepts into reality.
                 </p>
 
                 <div class="explore-caption">
