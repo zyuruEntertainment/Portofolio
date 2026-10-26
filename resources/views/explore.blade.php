@@ -69,8 +69,13 @@
                 </p>
             </section>
 
-            <nav class="explore-list" aria-label="Explore navigation">
-                <a class="explore-item" href="https://github.com/zyuruEntertainment">
+            <section class="explore-list" aria-label="Explore sections">
+                <button
+                    class="explore-item"
+                    type="button"
+                    disabled
+                    aria-disabled="true"
+                >
                     <span class="explore-number">01</span>
 
                     <span class="explore-item-content">
@@ -86,10 +91,14 @@
                         aria-hidden="true">
                         <path d="M7 17 17 7M7 7h10v10"></path>
                     </svg>
-                </a>
+                </button>
 
-                <a class="explore-item"
-                    href="https://github.com/zyuruEntertainment?tab=repositories">
+                <button
+                    class="explore-item"
+                    type="button"
+                    disabled
+                    aria-disabled="true"
+                >
                     <span class="explore-number">02</span>
 
                     <span class="explore-item-content">
@@ -105,9 +114,14 @@
                         aria-hidden="true">
                         <path d="M7 17 17 7M7 7h10v10"></path>
                     </svg>
-                </a>
+                </button>
 
-                <a class="explore-item" href="#social-media">
+                <button
+                    class="explore-item"
+                    type="button"
+                    disabled
+                    aria-disabled="true"
+                >
                     <span class="explore-number">03</span>
 
                     <span class="explore-item-content">
@@ -123,8 +137,9 @@
                         aria-hidden="true">
                         <path d="M7 17 17 7M7 7h10v10"></path>
                     </svg>
-                </a>
-            </nav>
+                </button>
+            </section>
+
 
             <p class="explore-note" id="social-media">
                 More places to connect will be added here.
