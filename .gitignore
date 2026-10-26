@@ -84,3 +84,10 @@ Homestead.json
 
 # Keep Laravel's storage directory placeholders
 # Individual storage subdirectories contain their own .gitignore files.
+
+# visual studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
