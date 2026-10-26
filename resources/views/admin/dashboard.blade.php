@@ -61,38 +61,11 @@
             </div>
         </header>
 
-        <main class="dashboard-main">
-            <section class="dashboard-hero">
+        <main class="dashboard-main dashboard-main--empty">
+            <section class="dashboard-hero dashboard-hero--empty">
                 <p class="eyebrow">Dashboard</p>
                 <h1>Welcome back, {{ Auth::guard('admin')->user()->name ?? 'Admin' }}.</h1>
                 <p>Manage updates, content, and the direction of the brand with clarity.</p>
-            </section>
-
-            <section class="dashboard-panel">
-                <div class="panel-topline">
-                    <span>Overview</span>
-                    <span class="panel-status">Online</span>
-                </div>
-
-                <div class="dashboard-grid">
-                    <article class="dashboard-card dashboard-card--wide">
-                        <span class="card-label">Status</span>
-                        <h2>System ready</h2>
-                        <p>The admin panel is live and prepared for managing the portfolio.</p>
-                    </article>
-
-                    <article class="dashboard-card">
-                        <span class="card-label">Focus</span>
-                        <h2>Creative output</h2>
-                        <p>Keep the work aligned with the brand voice and portfolio direction.</p>
-                    </article>
-
-                    <article class="dashboard-card">
-                        <span class="card-label">Quick access</span>
-                        <h2>Content control</h2>
-                        <p>Review updates, manage resources, and shape future releases.</p>
-                    </article>
-                </div>
             </section>
         </main>
     </div>

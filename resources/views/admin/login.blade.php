@@ -27,8 +27,8 @@
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 </head>
 <body>
-    <div class="site-shell admin-shell">
-        <header class="header admin-header">
+    <div class="site-shell admin-shell admin-shell--login">
+        <header class="header admin-header admin-header--login">
             <a class="wordmark" href="{{ url('/') }}" aria-label="zyuruEntertainment homepage">
                 zyuruEntertainment
             </a>
@@ -43,8 +43,8 @@
             </button>
         </header>
 
-        <main class="admin-main">
-            <section class="admin-panel">
+        <main class="admin-main admin-main--login">
+            <section class="admin-panel admin-panel--login">
                 <div class="admin-panel-copy">
                     <p class="eyebrow">Admin access</p>
                     <h1>Sign in to your control panel.</h1>
