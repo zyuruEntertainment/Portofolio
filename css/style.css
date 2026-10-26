@@ -1,0 +1,628 @@
+:root {
+    color-scheme: light dark;
+
+    --background: #ffffff;
+    --foreground: #111111;
+    --muted: #777777;
+    --border: #e6e6e6;
+    --card: #ffffff;
+    --card-border: #ededed;
+    --shadow-color: 0, 0, 0;
+
+    --button-bg: #111111;
+    --button-text: #ffffff;
+
+    --transition: 240ms ease;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --background: #0b0b0b;
+        --foreground: #f5f5f5;
+        --muted: #a0a0a0;
+        --border: #292929;
+        --card: #141414;
+        --card-border: #303030;
+        --shadow-color: 0, 0, 0;
+
+        --button-bg: #f5f5f5;
+        --button-text: #111111;
+    }
+}
+
+:root[data-theme="light"] {
+    color-scheme: light;
+
+    --background: #ffffff;
+    --foreground: #111111;
+    --muted: #777777;
+    --border: #e6e6e6;
+    --card: #ffffff;
+    --card-border: #ededed;
+    --shadow-color: 0, 0, 0;
+
+    --button-bg: #111111;
+    --button-text: #ffffff;
+}
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+
+    --background: #0b0b0b;
+    --foreground: #f5f5f5;
+    --muted: #a0a0a0;
+    --border: #292929;
+    --card: #141414;
+    --card-border: #303030;
+    --shadow-color: 0, 0, 0;
+
+    --button-bg: #f5f5f5;
+    --button-text: #111111;
+}
+
+/* ========================================
+   2. RESET & GLOBAL
+======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+
+    background: var(--background);
+    color: var(--foreground);
+
+    font-family:
+        Inter,
+        "Segoe UI",
+        -apple-system,
+        BlinkMacSystemFont,
+        sans-serif;
+
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+
+    transition:
+        background var(--transition),
+        color var(--transition);
+}
+
+button,
+a {
+    font: inherit;
+}
+
+button {
+    color: inherit;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid var(--muted);
+    outline-offset: 5px;
+}
+
+::selection {
+    background: var(--foreground);
+    color: var(--background);
+}
+
+/* ========================================
+   3. PAGE
+======================================== */
+
+.site-shell {
+    width: min(100% - 80px, 1600px);
+    min-height: 100vh;
+    margin-inline: auto;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========================================
+   4. HEADER
+======================================== */
+
+.header {
+    min-height: 104px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.wordmark {
+    display: inline-block;
+
+    font-size: clamp(22px, 2.1vw, 32px);
+    font-weight: 750;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+}
+
+.wordmark span {
+    font-weight: 500;
+}
+
+.theme-toggle {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--muted);
+    border-radius: 50%;
+
+    background: transparent;
+    cursor: pointer;
+
+    transition:
+        background var(--transition),
+        transform var(--transition);
+}
+
+.theme-toggle:hover {
+    background: var(--border);
+    transform: rotate(12deg);
+}
+
+.theme-toggle svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* ========================================
+   5. HERO LAYOUT
+======================================== */
+
+.hero {
+    flex: 1;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+    align-items: center;
+    gap: clamp(36px, 6vw, 100px);
+
+    padding-block: 90px 100px;
+}
+
+.hero-content {
+    min-width: 0;
+}
+
+.eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin: 0 0 30px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+    font-weight: 650;
+    letter-spacing: 2px;
+    line-height: 1.6;
+}
+
+.eyebrow-line {
+    width: 28px;
+    height: 1px;
+    flex-shrink: 0;
+
+    background: var(--foreground);
+}
+
+/* ========================================
+   6. HERO TYPOGRAPHY
+======================================== */
+
+.hero-title {
+    margin: 0;
+
+    font-size: clamp(48px, 6.5vw, 100px);
+    font-weight: 720;
+    letter-spacing: -0.075em;
+    line-height: 1.03;
+}
+
+.hero-title span {
+    display: block;
+
+    color: var(--muted);
+    font-weight: 450;
+    letter-spacing: -0.065em;
+}
+
+.hero-description {
+    max-width: 660px;
+    margin: 30px 0 0;
+
+    color: var(--muted);
+
+    font-size: clamp(15px, 1.45vw, 19px);
+    font-weight: 400;
+    line-height: 1.85;
+}
+
+/* ========================================
+   7. DISCOVER BUTTON
+======================================== */
+
+.discover-button {
+    min-height: 60px;
+    margin-top: 32px;
+    padding: 0 22px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+
+    border: 1px solid var(--button-bg);
+    border-radius: 9px;
+
+    background: var(--button-bg);
+    color: var(--button-text);
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: default;
+
+    transition:
+        opacity var(--transition),
+        transform var(--transition);
+}
+
+.discover-button:hover {
+    opacity: 0.88;
+    transform: translateY(-2px);
+}
+
+.discover-button svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* ========================================
+   8. FLOATING LOGO
+======================================== */
+
+.hero-visual {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding-top: 10px;
+}
+
+.logo-stage {
+    position: relative;
+
+    width: min(100%, 390px);
+    aspect-ratio: 1 / 1;
+
+    display: grid;
+    place-items: center;
+
+    perspective: 1000px;
+}
+
+/* Logo card */
+
+.logo-object {
+    position: relative;
+    z-index: 2;
+
+    width: 76%;
+    aspect-ratio: 1 / 1;
+
+    animation: logo-float 4s ease-in-out infinite;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.logo-face {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    overflow: hidden;
+
+    border: 1px solid var(--card-border);
+    border-radius: 25%;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--card),
+            var(--background)
+        );
+
+    box-shadow:
+        0 2px 3px rgba(var(--shadow-color), 0.04),
+        0 14px 28px rgba(var(--shadow-color), 0.035);
+}
+
+.logo-name {
+    color: var(--foreground);
+
+    font-size: clamp(42px, 5vw, 68px);
+    font-weight: 800;
+    letter-spacing: -0.085em;
+    line-height: 1;
+}
+
+.logo-caption {
+    color: var(--muted);
+
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 2.2px;
+}
+
+/* Dynamic-looking elliptical shadow */
+
+.logo-shadow {
+    position: absolute;
+    z-index: 1;
+
+    left: 50%;
+    bottom: 5%;
+
+    width: 78%;
+    height: 10%;
+
+    border-radius: 50%;
+    background: var(--foreground);
+
+    opacity: 0.78;
+    filter: blur(1px);
+
+    transform: translateX(-50%) scaleX(1);
+    animation: shadow-breathe 4s ease-in-out infinite;
+    will-change: transform, opacity, filter;
+}
+
+/* Small label under the logo */
+
+.visual-caption {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    margin: 34px 0 0;
+
+    color: var(--muted);
+
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.caption-dot {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+    background: var(--foreground);
+}
+
+/* ========================================
+   9. FLOAT ANIMATIONS
+======================================== */
+
+@keyframes logo-float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-24px);
+    }
+}
+
+@keyframes shadow-breathe {
+    0%,
+    100% {
+        transform: translateX(-50%) scale(1);
+        opacity: 0.78;
+        filter: blur(1px);
+    }
+
+    50% {
+        transform: translateX(-50%) scale(0.78, 0.72);
+        opacity: 0.38;
+        filter: blur(5px);
+    }
+}
+
+/* ========================================
+   10. FOOTER
+======================================== */
+
+.footer {
+    min-height: 76px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    border-top: 1px solid var(--border);
+
+    color: var(--muted);
+
+    font-size: 10px;
+    letter-spacing: 0.6px;
+}
+
+.footer-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    color: var(--foreground);
+}
+
+.footer-label i {
+    width: 3px;
+    height: 3px;
+
+    border-radius: 50%;
+    background: var(--muted);
+}
+
+/* ========================================
+   11. RESPONSIVE
+======================================== */
+
+@media (max-width: 900px) {
+    .site-shell {
+        width: min(100% - 48px, 720px);
+    }
+
+    .hero {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 64px;
+
+        padding-block: 78px 80px;
+    }
+
+    .hero-title {
+        font-size: clamp(52px, 10vw, 82px);
+    }
+
+    .hero-visual {
+        width: 100%;
+    }
+
+    .logo-stage {
+        width: min(78%, 340px);
+    }
+
+    .logo-name {
+        font-size: clamp(48px, 9vw, 68px);
+    }
+}
+
+@media (max-width: 520px) {
+    .site-shell {
+        width: calc(100% - 36px);
+    }
+
+    .header {
+        min-height: 78px;
+    }
+
+    .wordmark {
+        font-size: clamp(19px, 5.3vw, 26px);
+        letter-spacing: -1px;
+    }
+
+    .theme-toggle {
+        width: 42px;
+        height: 42px;
+    }
+
+    .theme-toggle svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .hero {
+        gap: 50px;
+        padding-block: 76px 68px;
+    }
+
+    .eyebrow {
+        margin-bottom: 24px;
+        font-size: 9px;
+        letter-spacing: 1.3px;
+    }
+
+    .hero-title {
+        font-size: clamp(43px, 11vw, 60px);
+        letter-spacing: -0.07em;
+    }
+
+    .hero-title span {
+        letter-spacing: -0.06em;
+    }
+
+    .hero-description {
+        margin-top: 22px;
+        font-size: 15px;
+        line-height: 1.8;
+    }
+
+    .discover-button {
+        min-height: 54px;
+        gap: 24px;
+        margin-top: 27px;
+    }
+
+    .logo-stage {
+        width: min(90%, 300px);
+    }
+
+    .logo-caption {
+        font-size: 7px;
+    }
+
+    .visual-caption {
+        margin-top: 24px;
+    }
+
+    .footer {
+        min-height: 76px;
+        padding-block: 20px;
+
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: center;
+        gap: 12px;
+
+        font-size: 9px;
+    }
+}
+
+/* Accessibility: reduce animation when requested */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition-duration: 0.01ms !important;
+    }
+}
