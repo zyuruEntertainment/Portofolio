@@ -26,10 +26,9 @@
                 "(prefers-color-scheme: dark)"
             ).matches;
 
-            const activeTheme =
-                theme === "auto"
-                    ? (systemDark ? "dark" : "light")
-                    : theme;
+            const activeTheme = theme === "auto"
+                ? (systemDark ? "dark" : "light")
+                : theme;
 
             document.documentElement.dataset.theme = theme;
             document.documentElement.dataset.activeTheme = activeTheme;
@@ -46,7 +45,7 @@
         <header class="header">
             <a
                 class="wordmark"
-                href="index.html"
+                href="{{ url('/') }}"
                 aria-label="zyuruEntertainment homepage"
             >
                 zyuruEntertainment
@@ -91,7 +90,6 @@
                     and meaningful digital experiences.
                 </p>
 
-                
                 <div class="hero-actions">
                     <a
                         class="discover-button"
@@ -114,7 +112,6 @@
                         </svg>
                     </a>
                 </div>
-
             </section>
 
             <section class="hero-visual" aria-label="zyuru logo">
@@ -196,6 +193,7 @@
                 : sunIcon;
 
             toggle.title = `Theme: ${theme}`;
+
             toggle.setAttribute(
                 "aria-label",
                 `Current theme: ${theme}. Switch theme`
