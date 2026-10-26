@@ -91,11 +91,12 @@
                     and meaningful digital experiences.
                 </p>
 
+                
                 <div class="hero-actions">
-                    <button
+                    <a
                         class="discover-button"
-                        type="button"
-                        aria-disabled="true"
+                        href="{{ url('/explore') }}"
+                        aria-label="Explore the website"
                     >
                         <span>Discover</span>
 
@@ -111,8 +112,9 @@
                             <path d="M5 19 19 5"></path>
                             <path d="M6 5h13v13"></path>
                         </svg>
-                    </button>
+                    </a>
                 </div>
+
             </section>
 
             <section class="hero-visual" aria-label="zyuru logo">

@@ -262,7 +262,7 @@ a:focus-visible {
     font-size: 16px;
     font-weight: 600;
 
-    cursor: default;
+    cursor: pointer;
 
     transition:
         opacity var(--transition),
@@ -592,5 +592,179 @@ a:focus-visible {
     *::after {
         animation: none !important;
         transition-duration: 0.01ms !important;
+    }
+}
+
+/* ========================================
+   15. EXPLORE PAGE
+======================================== */
+
+.explore-main {
+    flex: 1;
+    width: min(100%, 940px);
+    margin-inline: auto;
+    padding-block: clamp(64px, 10vh, 120px) 90px;
+}
+
+.explore-intro {
+    max-width: 780px;
+}
+
+.explore-eyebrow {
+    display: inline-block;
+    margin-bottom: 26px;
+
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.explore-title {
+    margin: 0;
+
+    font-size: clamp(52px, 8vw, 104px);
+    font-weight: 720;
+    letter-spacing: -0.075em;
+    line-height: 1.02;
+}
+
+.explore-title span {
+    display: block;
+
+    color: var(--muted);
+    font-weight: 450;
+    letter-spacing: -0.065em;
+}
+
+.explore-description {
+    max-width: 610px;
+    margin: 28px 0 0;
+
+    font-size: clamp(16px, 1.5vw, 19px);
+    line-height: 1.8;
+}
+
+.explore-list {
+    margin-top: 62px;
+    border-top: 1px solid var(--border);
+}
+
+.explore-item {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr) 32px;
+    align-items: center;
+    gap: 24px;
+
+    min-height: 124px;
+    padding: 24px 8px;
+
+    border-bottom: 1px solid var(--border);
+
+    transition:
+        background var(--transition),
+        padding var(--transition);
+}
+
+.explore-item:hover {
+    padding-inline: 18px;
+    background: var(--background);
+}
+
+.explore-number {
+    align-self: start;
+    padding-top: 6px;
+
+    color: var(--muted);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+}
+
+.explore-item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.explore-item-title {
+    font-size: clamp(23px, 3vw, 32px);
+    font-weight: 600;
+    letter-spacing: -1px;
+}
+
+.explore-item-description {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.explore-arrow {
+    width: 24px;
+    height: 24px;
+    color: var(--muted);
+
+    transition:
+        color var(--transition),
+        transform var(--transition);
+}
+
+.explore-item:hover .explore-arrow {
+    color: var(--foreground);
+    transform: translate(3px, -3px);
+}
+
+.explore-note {
+    margin-top: 24px;
+
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+@media (max-width: 520px) {
+    .explore-main {
+        padding-block: 54px 64px;
+    }
+
+    .explore-eyebrow {
+        margin-bottom: 22px;
+    }
+
+    .explore-title {
+        font-size: clamp(46px, 12vw, 62px);
+    }
+
+    .explore-description {
+        margin-top: 22px;
+        font-size: 15px;
+        line-height: 1.8;
+    }
+
+    .explore-list {
+        margin-top: 42px;
+    }
+
+    .explore-item {
+        grid-template-columns: 28px minmax(0, 1fr) 24px;
+        gap: 12px;
+        min-height: 112px;
+        padding-block: 22px;
+    }
+
+    .explore-item:hover {
+        padding-inline: 8px;
+    }
+
+    .explore-item-title {
+        font-size: 24px;
+    }
+
+    .explore-item-description {
+        font-size: 13px;
+    }
+
+    .explore-arrow {
+        width: 21px;
+        height: 21px;
     }
 }
