@@ -82,10 +82,7 @@
         <main class="explore-main">
 
             <section class="explore-intro">
-                <p class="explore-eyebrow">
-                    A LITTLE MORE ABOUT ME
-                </p>
-
+                
                 <h1 class="explore-title">
                     Explore what
                     <span>I create.</span>
