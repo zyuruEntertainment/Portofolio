@@ -346,3 +346,112 @@ a.sidebar-item:focus-visible,
         transition: none;
     }
 }
+
+/* ========================================
+   ADMIN DASHBOARD: NAVIGATION POLISH
+   Visual changes only
+======================================== */
+
+/* Smooth entrance for the profile workspace */
+.admin-sidebar {
+    animation: admin-sidebar-enter 420ms ease both;
+}
+
+.dashboard-main {
+    animation: admin-content-enter 480ms ease both;
+}
+
+/* Navigation items */
+.sidebar-nav .sidebar-item {
+    position: relative;
+    overflow: hidden;
+    transition: background-color 220ms ease, border-color 220ms ease, color 220ms ease, transform 220ms ease, opacity 220ms ease;
+}
+
+/* Only enabled navigation items respond to hover */
+.sidebar-nav a.sidebar-item:not(.sidebar-item--disabled):hover {
+    transform: translateX(4px);
+    background: var(--admin-soft);
+    border-color: var(--admin-panel-border);
+}
+
+/* Active Profile state */
+.sidebar-nav a.sidebar-item.is-active {
+    background: var(--admin-soft);
+    border-color: var(--admin-panel-border);
+    box-shadow: inset 3px 0 0 var(--foreground);
+}
+
+/* Small movement for the arrow */
+.sidebar-nav .sidebar-arrow {
+    display: inline-block;
+    transition: transform 220ms ease;
+}
+
+.sidebar-nav a.sidebar-item:not(.sidebar-item--disabled):hover .sidebar-arrow {
+    transform: translate(2px, -2px);
+}
+
+/* Number and label remain readable during interaction */
+.sidebar-nav a.sidebar-item:not(.sidebar-item--disabled):hover .sidebar-item-number {
+    color: var(--foreground);
+}
+
+/* Disabled Projects and Social Media stay visually inactive */
+.sidebar-nav .sidebar-item--disabled {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Keyboard users get the same clear focus state */
+.sidebar-nav .sidebar-item:focus-visible {
+    outline: 2px solid var(--muted);
+    outline-offset: 3px;
+}
+
+/* Workspace entrance animations */
+@keyframes admin-sidebar-enter {
+    from {
+        opacity: 0;
+        transform: translateX(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes admin-content-enter {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* On mobile, don't shift navigation horizontally */
+@media (max-width: 650px) {
+    .sidebar-nav a.sidebar-item:not(.sidebar-item--disabled):hover {
+        transform: translateY(-2px);
+    }
+}
+
+/* Respect reduced-motion accessibility preferences */
+@media (prefers-reduced-motion: reduce) {
+    .admin-sidebar,
+    .dashboard-main,
+    .sidebar-nav .sidebar-item,
+    .sidebar-nav .sidebar-arrow {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .sidebar-nav a.sidebar-item:not(.sidebar-item--disabled):hover {
+        transform: none;
+    }
+}

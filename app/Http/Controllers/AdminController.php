@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class AdminController extends Controller
 {
-    public function index(): View
+    public function index(): RedirectResponse
     {
-        return view('admin.dashboard');
+        return redirect()->route('admin.profile.edit');
     }
 }

@@ -113,7 +113,7 @@
                 </div>
 
                 <div class="form-actions">
-                    <a class="ghost-button" href="{{ route('admin.dashboard') }}">Cancel</a>
+                    <a class="ghost-button" href="{{ url('/') }}">Cancel</a>
                     <button class="primary-button" type="submit">Save profile</button>
                 </div>
             </form>
