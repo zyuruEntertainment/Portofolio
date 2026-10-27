@@ -5,45 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#ffffff">
     <title>Admin Dashboard | zyuruEntertainment</title>
+
     <script>
         (() => {
             let theme = "auto";
-            try { theme = localStorage.getItem("zyuru-theme") || "auto"; } catch {}
+
+            try {
+                theme = localStorage.getItem("zyuru-theme") || "auto";
+            } catch {}
+
             const dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
             const active = theme === "auto" ? (dark ? "dark" : "light") : theme;
+
             document.documentElement.dataset.theme = theme;
             document.documentElement.dataset.activeTheme = active;
             document.documentElement.style.colorScheme = active;
         })();
     </script>
+
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin-polish.css') }}">
 </head>
 <body>
 <div class="site-shell admin-shell">
+
     <header class="header admin-header">
-        <a class="wordmark" href="{{ url('/') }}" aria-label="zyuruEntertainment homepage">zyuruEntertainment</a>
+        <a class="wordmark" href="{{ url('/') }}" aria-label="zyuruEntertainment homepage">
+            zyuruEntertainment
+        </a>
 
         <div class="admin-header-actions">
             <div class="admin-user-menu">
-                <button class="admin-user-toggle" type="button" aria-expanded="false" aria-label="Admin menu">
-                    <span class="admin-avatar">{{ strtoupper(substr(Auth::guard('admin')->user()->name ?? 'A', 0, 1)) }}</span>
-                    <span class="admin-label">{{ Auth::guard('admin')->user()->name ?? 'Admin' }}</span>
+                <button
+                    class="admin-user-toggle"
+                    type="button"
+                    aria-expanded="false"
+                    aria-label="Admin menu"
+                >
+                    <span class="admin-avatar">
+                        {{ strtoupper(substr(Auth::guard('admin')->user()->name ?? 'A', 0, 1)) }}
+                    </span>
+
+                    <span class="admin-label">
+                        {{ Auth::guard('admin')->user()->name ?? 'Admin' }}
+                    </span>
+
+                    <svg class="admin-user-chevron" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="1.6"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
+                        <path d="m7 10 5 5 5-5"></path>
+                    </svg>
                 </button>
+
                 <div class="admin-dropdown" role="menu">
                     <form method="POST" action="{{ route('admin.logout') }}">
                         @csrf
-                        <button type="submit" class="dropdown-logout" role="menuitem">Logout</button>
+                        <button type="submit" class="dropdown-logout" role="menuitem">
+                            Log out
+                        </button>
                     </form>
                 </div>
             </div>
 
-            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch color theme" title="Switch color theme">
-                <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <button class="theme-toggle" id="themeToggle" type="button"
+                aria-label="Switch color theme" title="Switch color theme">
+                <svg id="themeIcon" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
                     <circle cx="12" cy="12" r="4"></circle>
                     <path d="M12 2v2M12 20v2M2 12h2M20 12h2"></path>
                     <path d="m4.93 4.93 1.42 1.42m11.3 11.3 1.42 1.42"></path>
-                    <path d="m4.93 19.07 1.42-1.42m11.3-11.3 1.42-1.42"></path>
+                    <path d="m4.93 19.07-1.42 1.42m11.3-11.3 1.42-1.42"></path>
                 </svg>
             </button>
         </div>
@@ -51,16 +85,25 @@
 
     <div class="admin-layout">
         <aside class="admin-sidebar">
-            <p class="sidebar-heading">Manage</p>
+            <p class="sidebar-heading">Workspace</p>
+
             <nav class="sidebar-nav" aria-label="Admin navigation">
                 <a href="{{ route('admin.profile.edit') }}" class="sidebar-item">
-                    <span class="sidebar-item-number">01</span><span>Profile</span><span class="sidebar-arrow" aria-hidden="true">↗</span>
+                    <span class="sidebar-item-number">01</span>
+                    <span>Profile</span>
+                    <span class="sidebar-arrow" aria-hidden="true">↗</span>
                 </a>
+
                 <button type="button" class="sidebar-item sidebar-item--disabled" disabled>
-                    <span class="sidebar-item-number">02</span><span>Projects</span><span class="sidebar-soon">Soon</span>
+                    <span class="sidebar-item-number">02</span>
+                    <span>Projects</span>
+                    <span class="sidebar-soon">Soon</span>
                 </button>
+
                 <button type="button" class="sidebar-item sidebar-item--disabled" disabled>
-                    <span class="sidebar-item-number">03</span><span>Social Media</span><span class="sidebar-soon">Soon</span>
+                    <span class="sidebar-item-number">03</span>
+                    <span>Social Media</span>
+                    <span class="sidebar-soon">Soon</span>
                 </button>
             </nav>
         </aside>
@@ -76,12 +119,25 @@
     const toggle = document.getElementById("themeToggle");
     const icon = document.getElementById("themeIcon");
     const themeColor = document.querySelector('meta[name="theme-color"]');
-    const sunIcon = `<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M2 12h2M20 12h2"></path><path d="m4.93 4.93 1.42 1.42m11.3 11.3 1.42 1.42"></path><path d="m4.93 19.07 1.42-1.42m11.3-11.3 1.42-1.42"></path>`;
-    const moonIcon = `<path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"></path>`;
+
+    const sunIcon = `
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2M12 20v2M2 12h2M20 12h2"></path>
+        <path d="m4.93 4.93 1.42 1.42m11.3 11.3 1.42 1.42"></path>
+        <path d="m4.93 19.07-1.42 1.42m11.3-11.3 1.42-1.42"></path>
+    `;
+
+    const moonIcon = `
+        <path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"></path>
+    `;
+
     const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
 
     function applyTheme(theme) {
-        const active = theme === "auto" ? (systemTheme.matches ? "dark" : "light") : theme;
+        const active = theme === "auto"
+            ? (systemTheme.matches ? "dark" : "light")
+            : theme;
+
         root.dataset.theme = theme;
         root.dataset.activeTheme = active;
         root.style.colorScheme = active;
@@ -91,20 +147,30 @@
 
     toggle.addEventListener("click", () => {
         const next = root.dataset.activeTheme === "light" ? "dark" : "light";
-        try { localStorage.setItem("zyuru-theme", next); } catch {}
+
+        try {
+            localStorage.setItem("zyuru-theme", next);
+        } catch {}
+
         applyTheme(next);
     });
+
     systemTheme.addEventListener("change", () => {
-        if (root.dataset.theme === "auto") applyTheme("auto");
+        if (root.dataset.theme === "auto") {
+            applyTheme("auto");
+        }
     });
+
     applyTheme(root.dataset.theme || "auto");
 
     const userToggle = document.querySelector(".admin-user-toggle");
     const dropdown = document.querySelector(".admin-dropdown");
+
     userToggle.addEventListener("click", () => {
         const open = dropdown.classList.toggle("is-open");
         userToggle.setAttribute("aria-expanded", String(open));
     });
+
     document.addEventListener("click", (event) => {
         if (!event.target.closest(".admin-user-menu")) {
             dropdown.classList.remove("is-open");
