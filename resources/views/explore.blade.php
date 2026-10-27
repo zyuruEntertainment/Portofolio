@@ -170,7 +170,9 @@
                 </a>
 
                 {{-- Projects --}}
-                <div class="explore-card">
+                <a href="{{ route('projects') }}"
+                    class="explore-card"
+                    aria-label="Open projects page">
                     <div class="explore-card-top">
                         <span class="explore-card-number">
                             02
@@ -209,7 +211,7 @@
                             ↗
                         </span>
                     </div>
-                </div>
+                </a>
 
                 {{-- Social Media --}}
                 <div class="explore-card">

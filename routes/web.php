@@ -11,6 +11,7 @@ Route::get('/', function () {
 });
 
 Route::view('/explore', 'explore')->name('explore');
+Route::view('/projects', 'projects')->name('projects');
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
 Route::prefix('admin')->name('admin.')->group(function () {
