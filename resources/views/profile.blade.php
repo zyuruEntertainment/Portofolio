@@ -70,7 +70,6 @@
 
         <main class="profile-hero">
             <section class="profile-content" aria-labelledby="profileName">
-                <p class="eyebrow">PROFILE</p>
 
                 <h1 class="profile-title" id="profileName">
                     {{ $profile?->name ?? 'Profile coming soon' }}
