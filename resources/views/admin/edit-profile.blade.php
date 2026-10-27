@@ -18,6 +18,7 @@
     </script>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin-polish.css') }}">
 </head>
 <body>
 <div class="site-shell admin-shell">
