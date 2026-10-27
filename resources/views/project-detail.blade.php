@@ -19,28 +19,48 @@
         </button>
     </header>
 
-    <main class="project-detail {{ $project->preview_path ? 'has-preview' : 'no-preview' }}">
-        <section>
-            <img class="project-detail-logo" src="{{ asset('storage/'.$project->logo_path) }}" alt="{{ $project->title }} logo">
-            <p class="eyebrow">{{ $project->status }}</p>
-            <h1>{{ $project->title }}</h1>
-            <p class="project-lead">{{ $project->short_description }}</p>
-            <div class="project-full-description">{{ $project->full_description }}</div>
-            <div class="form-actions">
-                <a class="ghost-button" href="{{ route('projects') }}">Back to Projects</a>
-                <a class="primary-button" href="{{ $project->github_url }}" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+    <main class="project-detail">
+        <section class="project-detail-hero {{ $project->preview_path ? 'has-preview' : 'no-preview' }}">
+            <div class="project-detail-copy">
+                <img class="project-detail-logo" src="{{ asset('storage/'.$project->logo_path) }}" alt="{{ $project->title }} logo">
+                <p class="eyebrow">{{ $project->status }}</p>
+                <h1>{{ $project->title }}</h1>
+                <p class="project-lead">{{ $project->short_description }}</p>
+                <div class="project-detail-actions">
+                    <a class="discover-button project-action project-action-secondary" href="{{ route('projects') }}">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M19 12H5"></path>
+                            <path d="m12 19-7-7 7-7"></path>
+                        </svg>
+                        <span>Back to Projects</span>
+                    </a>
+                    @if ($project->githubRepositoryUrl())
+                        <a class="discover-button project-action" href="{{ $project->githubRepositoryUrl() }}" target="_blank" rel="noopener noreferrer">
+                            <span>View on GitHub</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M5 19 19 5"></path>
+                                <path d="M6 5h13v13"></path>
+                            </svg>
+                        </a>
+                    @endif
+                </div>
             </div>
+
+            @if ($project->preview_path)
+                <aside class="project-detail-media" aria-label="Project preview">
+                    @if ($project->preview_type === 'video')
+                        <video src="{{ asset('storage/'.$project->preview_path) }}" controls playsinline></video>
+                    @else
+                        <img src="{{ asset('storage/'.$project->preview_path) }}" alt="{{ $project->title }} preview">
+                    @endif
+                </aside>
+            @endif
         </section>
 
-        @if ($project->preview_path)
-            <aside class="project-detail-media" aria-label="Project preview">
-                @if ($project->preview_type === 'video')
-                    <video src="{{ asset('storage/'.$project->preview_path) }}" controls playsinline></video>
-                @else
-                    <img src="{{ asset('storage/'.$project->preview_path) }}" alt="{{ $project->title }} preview">
-                @endif
-            </aside>
-        @endif
+        <section class="project-detail-content" aria-label="Project details">
+            <p class="eyebrow">Project details</p>
+            <div class="project-full-description">{{ $project->full_description }}</div>
+        </section>
     </main>
 
     <footer class="footer">

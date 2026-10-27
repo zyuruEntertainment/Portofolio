@@ -3,9 +3,9 @@
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminProfileController;
+use App\Http\Controllers\AdminProjectController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\AdminProjectController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,7 +14,7 @@ Route::get('/', function () {
 
 Route::view('/explore', 'explore')->name('explore');
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects');
-Route::get('/projects/{slug}', [ProjectController::class, 'show'])->name('projects.show');
+Route::get('/projects/{project:slug}', [ProjectController::class, 'show'])->name('projects.show');
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
 Route::prefix('admin')->name('admin.')->group(function () {
