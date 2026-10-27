@@ -455,3 +455,138 @@ a.sidebar-item:focus-visible,
         transform: none;
     }
 }
+
+/* ========================================
+   ADMIN SIDEBAR: STICKY + HOVER ANIMATION
+======================================== */
+
+/* Keep the sidebar anchored while the main page scrolls */
+@media (min-width: 651px) {
+    .admin-layout {
+        align-items: start;
+    }
+
+    .admin-sidebar {
+        position: sticky;
+        top: 24px;
+        align-self: start;
+        max-height: calc(100vh - 48px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        scrollbar-width: thin;
+        z-index: 5;
+    }
+}
+
+/* Navigation item animation */
+.sidebar-nav .sidebar-item {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    transform: translateX(0);
+    transition: transform 240ms cubic-bezier(0.2, 0.7, 0.2, 1), background-color 240ms ease, border-color 240ms ease, color 240ms ease, box-shadow 240ms ease;
+}
+
+    /* Animated accent line on the left */
+    .sidebar-nav .sidebar-item::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: 10px;
+        bottom: 10px;
+        left: 0;
+        width: 3px;
+        border-radius: 0 4px 4px 0;
+        background: var(--foreground);
+        transform: scaleY(0);
+        transform-origin: center;
+        transition: transform 240ms cubic-bezier(0.2, 0.7, 0.2, 1);
+        pointer-events: none;
+    }
+
+/* Hover effect for enabled links */
+.sidebar-nav a.sidebar-item:not(.sidebar-item--disabled):hover {
+    transform: translateX(5px);
+    background: var(--admin-soft);
+    border-color: var(--admin-panel-border);
+}
+
+    /* Reveal the accent line on hover and active state */
+    .sidebar-nav a.sidebar-item:not(.sidebar-item--disabled):hover::before,
+    .sidebar-nav a.sidebar-item.is-active::before {
+        transform: scaleY(1);
+    }
+
+/* Animate the item number */
+.sidebar-nav .sidebar-item-number {
+    display: inline-block;
+    transition: color 220ms ease, transform 220ms ease;
+}
+
+.sidebar-nav a.sidebar-item:not(.sidebar-item--disabled):hover .sidebar-item-number {
+    color: var(--foreground);
+    transform: translateX(2px);
+}
+
+/* Animate the arrow */
+.sidebar-nav .sidebar-arrow {
+    display: inline-block;
+    transition: transform 240ms cubic-bezier(0.2, 0.7, 0.2, 1), opacity 220ms ease;
+}
+
+.sidebar-nav a.sidebar-item:not(.sidebar-item--disabled):hover .sidebar-arrow {
+    transform: translate(3px, -3px);
+}
+
+/* Keep the selected section visually distinct */
+.sidebar-nav a.sidebar-item.is-active {
+    background: var(--admin-soft);
+    border-color: var(--admin-panel-border);
+    box-shadow: inset 0 0 0 1px var(--admin-panel-border);
+}
+
+/* Disabled items never pretend to be interactive */
+.sidebar-nav .sidebar-item--disabled {
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+    .sidebar-nav .sidebar-item--disabled::before {
+        transform: scaleY(0);
+    }
+
+/* Keyboard accessibility */
+.sidebar-nav .sidebar-item:focus-visible {
+    outline: 2px solid var(--muted);
+    outline-offset: 3px;
+}
+
+/* Mobile: navbar returns to normal document flow */
+@media (max-width: 650px) {
+    .admin-sidebar {
+        position: static;
+        top: auto;
+        max-height: none;
+        overflow: visible;
+    }
+
+    .sidebar-nav a.sidebar-item:not(.sidebar-item--disabled):hover {
+        transform: translateY(-2px);
+    }
+}
+
+/* Respect reduced-motion settings */
+@media (prefers-reduced-motion: reduce) {
+    .sidebar-nav .sidebar-item,
+    .sidebar-nav .sidebar-item::before,
+    .sidebar-nav .sidebar-item-number,
+    .sidebar-nav .sidebar-arrow {
+        transition: none !important;
+        animation: none !important;
+    }
+
+    .sidebar-nav a.sidebar-item:not(.sidebar-item--disabled):hover {
+        transform: none;
+    }
+}
