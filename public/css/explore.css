@@ -82,6 +82,13 @@
     background: var(--muted);
 }
 
+/* Matches the homepage `.hero-actions` placement so the
+   "Back to home" button lines up with the Discover button. */
+
+.explore-actions {
+    margin-top: 32px;
+}
+
 /* ========================================
    NAVIGATION CARDS
 ======================================== */

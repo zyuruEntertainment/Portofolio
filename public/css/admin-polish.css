@@ -413,44 +413,12 @@ a.sidebar-item:focus-visible,
 
 /* ========================================
    5. DASHBOARD CONTENT
+   Page entrance is handled once in style.css so public and admin
+   pages share the same motion (see "PAGE ENTRANCE").
 ======================================== */
 
 .dashboard-main {
     min-width: 0;
-}
-
-/* Subtle entrance animation */
-
-@keyframes admin-sidebar-enter {
-    from {
-        opacity: 0;
-        transform: translateX(-8px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes admin-content-enter {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.admin-layout .admin-sidebar {
-    animation: admin-sidebar-enter 420ms ease both;
-}
-
-.admin-layout .dashboard-main {
-    animation: admin-content-enter 480ms ease both;
 }
 
 /* ========================================
@@ -496,7 +464,6 @@ a.sidebar-item:focus-visible,
         overflow: visible;
         padding-top: 22px;
         border-right: 0;
-        animation: none;
     }
 
     .sidebar-nav {
@@ -615,8 +582,6 @@ a.sidebar-item:focus-visible,
 ======================================== */
 
 @media (prefers-reduced-motion: reduce) {
-    .admin-layout .admin-sidebar,
-    .admin-layout .dashboard-main,
     .admin-user-chevron,
     .admin-login-submit svg,
     .sidebar-nav .sidebar-item,

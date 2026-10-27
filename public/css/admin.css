@@ -89,20 +89,9 @@
 }
 .dropdown-logout:hover { background: var(--admin-soft); }
 
-.theme-toggle {
-    width: 52px;
-    height: 52px;
-    flex-shrink: 0;
-    display: grid;
-    place-items: center;
-    border: 1px solid var(--muted);
-    border-radius: 50%;
-    background: transparent;
-    cursor: pointer;
-    transition: background var(--transition), transform var(--transition);
-}
-.theme-toggle:hover { background: var(--admin-soft); transform: rotate(12deg); }
-.theme-toggle svg { width: 24px; height: 24px; }
+/* `.theme-toggle` base styles live in style.css. Admin pages only
+   override the hover surface so it matches the admin panels. */
+.theme-toggle:hover { background: var(--admin-soft); }
 
 .admin-layout {
     display: grid;

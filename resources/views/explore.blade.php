@@ -96,6 +96,29 @@
                     <span class="explore-caption-dot"></span>
                     <span>Independent developer</span>
                 </div>
+
+                <div class="explore-actions">
+                    <a
+                        class="discover-button"
+                        href="{{ url('/') }}"
+                        aria-label="Back to the homepage"
+                    >
+                        <span>Back to home</span>
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M19 19 5 5"></path>
+                            <path d="M18 5H5v13"></path>
+                        </svg>
+                    </a>
+                </div>
             </section>
 
             {{-- Navigation previews: intentionally non-clickable --}}

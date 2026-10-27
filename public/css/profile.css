@@ -89,7 +89,10 @@
     width: 76%;
     aspect-ratio: 1 / 1;
     flex: none;
-    animation: profile-float 4s ease-in-out infinite;
+
+    --float-offset: -20px;
+
+    animation: logo-float 4s ease-in-out infinite;
 }
 
 .profile-logo-face {
@@ -140,39 +143,17 @@
     height: 8%;
     border-radius: 50%;
     background: var(--foreground);
+
+    --shadow-opacity: 0.32;
+    --shadow-opacity-mid: 0.18;
+    --shadow-blur: 7px;
+    --shadow-blur-mid: 10px;
+
     opacity: 0.32;
     filter: blur(7px);
     transform: translateX(-50%);
-    animation: profile-shadow 4s ease-in-out infinite;
+    animation: shadow-breathe 4s ease-in-out infinite;
     pointer-events: none;
-}
-
-/* ========================================
-   ANIMATIONS
-======================================== */
-
-@keyframes profile-float {
-    0%, 100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-20px);
-    }
-}
-
-@keyframes profile-shadow {
-    0%, 100% {
-        transform: translateX(-50%) scale(1);
-        opacity: 0.32;
-        filter: blur(7px);
-    }
-
-    50% {
-        transform: translateX(-50%) scale(0.78, 0.72);
-        opacity: 0.18;
-        filter: blur(10px);
-    }
 }
 
 /* ========================================

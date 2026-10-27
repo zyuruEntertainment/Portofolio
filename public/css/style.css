@@ -418,6 +418,8 @@ a:focus-visible {
 
 /* ========================================
    10. FLOATING ANIMATIONS
+   Shared by the homepage logo and the profile photo. Each page tunes
+   the movement through custom properties, so the keyframes live once.
 ======================================== */
 
 @keyframes logo-float {
@@ -427,7 +429,7 @@ a:focus-visible {
     }
 
     50% {
-        transform: translateY(-24px);
+        transform: translateY(var(--float-offset, -24px));
     }
 }
 
@@ -435,14 +437,14 @@ a:focus-visible {
     0%,
     100% {
         transform: translateX(-50%) scale(1);
-        opacity: 0.78;
-        filter: blur(1px);
+        opacity: var(--shadow-opacity, 0.78);
+        filter: blur(var(--shadow-blur, 1px));
     }
 
     50% {
         transform: translateX(-50%) scale(0.78, 0.72);
-        opacity: 0.38;
-        filter: blur(5px);
+        opacity: var(--shadow-opacity-mid, 0.38);
+        filter: blur(var(--shadow-blur-mid, 5px));
     }
 }
 
@@ -597,38 +599,40 @@ a:focus-visible {
 
 /* ========================================
    PAGE ENTRANCE
-   Smooth and minimal page transitions
+   One shared entrance for every page, admin included.
+
+   Content never starts fully transparent, so the page is readable
+   from the first frame. The motion moves upward on purpose: a
+   downward shift on a full-height page (admin dashboard, editor)
+   would create a temporary scrollbar and a layout jolt.
 ======================================== */
 
 @keyframes page-enter {
     from {
-        transform: translateY(6px);
+        opacity: 0.6;
+        transform: translateY(-6px);
     }
 
     to {
+        opacity: 1;
         transform: translateY(0);
     }
 }
 
-/* Keep the entrance subtle and fast. Avoid starting at opacity: 0 so the
-   page content is readable immediately instead of appearing after a delay. */
-.site-shell > .header {
-    animation: page-enter 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+.site-shell > .header,
+.site-shell > main,
+.site-shell > .admin-layout,
+.site-shell > .footer {
+    animation: page-enter 280ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
 
-.site-shell > main {
-    animation: page-enter 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+/* Short stagger only offsets the start state; nothing is hidden.
+   `backwards` leaves no transform behind after the animation ends. */
+.site-shell > main,
+.site-shell > .admin-layout {
+    animation-delay: 40ms;
 }
 
 .site-shell > .footer {
-    animation: page-enter 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-/* Respect reduced-motion preferences */
-@media (prefers-reduced-motion: reduce) {
-    .site-shell > .header,
-    .site-shell > main,
-    .site-shell > .footer {
-        animation: none;
-    }
+    animation-delay: 80ms;
 }
