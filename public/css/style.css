@@ -175,6 +175,11 @@ a:focus-visible {
         transform var(--transition);
 }
 
+.theme-icon { display:block; width:18px; height:18px; }
+.theme-icon-moon { display:none; }
+:root[data-active-theme="dark"] .theme-icon-sun { display:none; }
+:root[data-active-theme="dark"] .theme-icon-moon { display:block; }
+
 .theme-toggle:hover {
     background: var(--border);
     transform: rotate(12deg);

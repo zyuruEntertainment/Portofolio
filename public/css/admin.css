@@ -8,7 +8,7 @@
     --admin-shadow: 0 20px 45px rgba(0, 0, 0, 0.06);
 }
 
-:root[data-theme="dark"] {
+:root[data-active-theme="dark"] {
     --admin-panel-bg: rgba(18, 18, 18, 0.78);
     --admin-panel-border: rgba(255, 255, 255, 0.09);
     --admin-input-bg: rgba(13, 13, 13, 0.82);
