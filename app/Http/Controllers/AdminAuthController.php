@@ -21,10 +21,13 @@ class AdminAuthController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        if (Auth::guard('admin')->attempt($credentials, $request->boolean('remember'))) {
+        if (Auth::guard('admin')->attempt(
+            $credentials,
+            $request->boolean('remember')
+        )) {
             $request->session()->regenerate();
 
-            return redirect()->intended(route('admin.dashboard'));
+            return redirect()->route('admin.dashboard');
         }
 
         return back()->withErrors([

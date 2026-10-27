@@ -20,7 +20,12 @@ class AdminProfileController extends Controller
     public function update(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'icon' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'icon' => [
+                'nullable',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:2048',
+            ],
             'name' => ['required', 'string', 'max:100'],
             'description' => ['required', 'string', 'max:500'],
             'overview' => ['required', 'string', 'max:5000'],
@@ -29,10 +34,13 @@ class AdminProfileController extends Controller
         $profile = AdminProfile::query()->firstOrNew(['id' => 1]);
 
         if ($request->hasFile('icon')) {
-            $newPath = $request->file('icon')->store('profile-icons', 'public');
+            $newPath = $request->file('icon')
+                ->store('profile-icons', 'public');
 
             if ($profile->icon_path) {
-                Storage::disk('public')->delete($profile->icon_path);
+                Storage::disk('public')->delete(
+                    $profile->icon_path
+                );
             }
 
             $profile->icon_path = $newPath;
@@ -44,7 +52,7 @@ class AdminProfileController extends Controller
         $profile->save();
 
         return redirect()
-            ->route('admin.profile.edit')
+            ->route('admin.dashboard', ['section' => 'profile'])
             ->with('status', 'Profile berhasil disimpan.');
     }
 }

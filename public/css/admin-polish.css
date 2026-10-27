@@ -631,3 +631,303 @@ a.sidebar-item:focus-visible,
         transform: none;
     }
 }
+
+/* ========================================
+   DASHBOARD SECTION CONTENT
+======================================== */
+
+.dashboard-section {
+    width: 100%;
+    max-width: 900px;
+    min-width: 0;
+}
+
+.dashboard-section-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 30px;
+}
+
+.dashboard-title {
+    margin: 12px 0 0;
+    font-size: clamp(42px, 5vw, 70px);
+    line-height: 0.98;
+    letter-spacing: -0.07em;
+    font-weight: 650;
+}
+
+.dashboard-description {
+    max-width: 580px;
+    margin: 16px 0 0;
+    color: var(--muted);
+    font-size: 0.98rem;
+    line-height: 1.75;
+}
+
+.profile-overview-card,
+.dashboard-placeholder-card {
+    border: 1px solid var(--admin-panel-border);
+    border-radius: 20px;
+    background: var(--admin-panel-bg);
+    box-shadow: var(--admin-shadow);
+}
+
+.profile-overview-card {
+    padding: clamp(20px, 3vw, 34px);
+}
+
+.profile-overview-top {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.profile-overview-avatar {
+    width: 100px;
+    height: 100px;
+    flex: 0 0 100px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid var(--admin-panel-border);
+    border-radius: 22px;
+    background: var(--admin-soft);
+    color: var(--foreground);
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+    .profile-overview-avatar img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.profile-overview-identity {
+    min-width: 0;
+}
+
+.profile-card-label {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.profile-overview-identity h2 {
+    margin: 8px 0 0;
+    font-size: clamp(24px, 3vw, 34px);
+    line-height: 1.15;
+    letter-spacing: -0.045em;
+    overflow-wrap: anywhere;
+}
+
+.profile-overview-description {
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.profile-overview-divider {
+    height: 1px;
+    margin: 28px 0;
+    background: var(--admin-panel-border);
+}
+
+.profile-overview-text {
+    margin: 12px 0 0;
+    color: var(--foreground);
+    font-size: 0.95rem;
+    line-height: 1.85;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+    .profile-overview-text.is-placeholder {
+        color: var(--muted);
+    }
+
+.profile-overview-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 28px;
+}
+
+    .profile-overview-actions .primary-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 18px;
+        text-decoration: none;
+    }
+
+.dashboard-placeholder-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: clamp(20px, 3vw, 30px);
+}
+
+.dashboard-placeholder-icon {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--admin-panel-border);
+    border-radius: 14px;
+    background: var(--admin-soft);
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.dashboard-placeholder-copy {
+    flex: 1;
+    min-width: 0;
+}
+
+    .dashboard-placeholder-copy h2 {
+        margin: 2px 0 0;
+        font-size: clamp(20px, 2.5vw, 27px);
+        line-height: 1.25;
+        letter-spacing: -0.04em;
+    }
+
+    .dashboard-placeholder-copy p {
+        margin: 12px 0 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.75;
+    }
+
+.dashboard-placeholder-card .ghost-button {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+    .dashboard-placeholder-card .ghost-button:disabled {
+        cursor: not-allowed;
+        opacity: 0.55;
+    }
+
+.editor-main {
+    width: min(100%, 850px);
+    margin-inline: auto;
+    padding: 36px 0 80px;
+}
+
+.editor-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 38px;
+    color: var(--muted);
+    font-size: 0.88rem;
+    text-decoration: none;
+    transition: color var(--transition), transform var(--transition);
+}
+
+    .editor-back-link:hover {
+        color: var(--foreground);
+        transform: translateX(-3px);
+    }
+
+.editor-main .edit-profile-heading {
+    max-width: 680px;
+    margin-bottom: 32px;
+}
+
+    .editor-main .edit-profile-heading h1 {
+        margin: 12px 0 0;
+        font-size: clamp(42px, 5vw, 72px);
+        line-height: 0.98;
+        letter-spacing: -0.07em;
+    }
+
+    .editor-main .edit-profile-heading > p:last-child {
+        max-width: 580px;
+        margin: 16px 0 0;
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+.editor-main .profile-edit-form {
+    width: 100%;
+}
+
+@media (max-width: 650px) {
+    .dashboard-section-heading {
+        margin-bottom: 24px;
+    }
+
+    .dashboard-title {
+        font-size: clamp(40px, 10vw, 58px);
+    }
+
+    .profile-overview-top {
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .profile-overview-avatar {
+        width: 76px;
+        height: 76px;
+        flex-basis: 76px;
+        border-radius: 18px;
+    }
+
+    .dashboard-placeholder-card {
+        flex-wrap: wrap;
+    }
+
+    .dashboard-placeholder-copy {
+        flex-basis: calc(100% - 70px);
+    }
+
+    .dashboard-placeholder-card .ghost-button {
+        width: 100%;
+    }
+
+    .editor-main {
+        padding-top: 28px;
+        padding-bottom: 56px;
+    }
+
+    .editor-back-link {
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 420px) {
+    .profile-overview-card {
+        padding: 17px;
+    }
+
+    .profile-overview-top {
+        flex-direction: column;
+    }
+
+    .profile-overview-actions .primary-button {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .dashboard-placeholder-card {
+        gap: 14px;
+        padding: 18px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .editor-back-link {
+        transition: none;
+    }
+}
