@@ -105,7 +105,7 @@
             >
 
                 {{-- Profile --}}
-                <div class="explore-card">
+                <a href="{{ route('profile') }}" class="explore-card" aria-label="Open profile page">
                     <div class="explore-card-top">
                         <span class="explore-card-number">
                             01
@@ -144,7 +144,7 @@
                             ↗
                         </span>
                     </div>
-                </div>
+                </a>
 
                 {{-- Projects --}}
                 <div class="explore-card">

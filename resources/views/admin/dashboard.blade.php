@@ -61,13 +61,23 @@
             </div>
         </header>
 
-        <main class="dashboard-main dashboard-main--empty">
-            <section class="dashboard-hero dashboard-hero--empty">
-                <p class="eyebrow">Dashboard</p>
-                <h1>Welcome back, {{ Auth::guard('admin')->user()->name ?? 'Admin' }}.</h1>
-                <p>Manage updates, content, and the direction of the brand with clarity.</p>
-            </section>
-        </main>
+        <div class="admin-layout">
+            <aside class="admin-sidebar">
+                <nav class="sidebar-nav" aria-label="Admin navigation">
+                    <a href="{{ route('admin.profile.edit') }}" class="sidebar-item">Profile</a>
+                    <a href="#" class="sidebar-item">Projects</a>
+                    <a href="#" class="sidebar-item">Social Media</a>
+                </nav>
+            </aside>
+
+            <main class="dashboard-main dashboard-main--empty">
+                <section class="dashboard-hero dashboard-hero--empty">
+                    <p class="eyebrow">Dashboard</p>
+                    <h1>Welcome back, {{ Auth::guard('admin')->user()->name ?? 'Admin' }}.</h1>
+                    <p>Manage updates, content, and the direction of the brand with clarity.</p>
+                </section>
+            </main>
+        </div>
     </div>
 
     <script>
