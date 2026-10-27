@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdminProfile;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -27,6 +28,7 @@ class AdminController extends Controller
         return view('admin.dashboard', [
             'section' => $section,
             'profile' => AdminProfile::current(),
+            'projects' => Project::latest()->get(),
         ]);
     }
 }

@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin-polish.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/projects.css') }}">
 </head>
 <body>
 <div class="site-shell admin-shell">
@@ -222,30 +223,28 @@
                         <div>
                             <p class="eyebrow">Admin / Projects</p>
                             <h1 class="dashboard-title">Projects.</h1>
-                            <p class="dashboard-description">
-                                Review and manage the projects displayed in your portfolio.
-                            </p>
+                            <p class="dashboard-description">Manage your portfolio projects.</p>
                         </div>
+                        <a class="primary-button" href="{{ route('admin.projects.create') }}">Add Project</a>
                     </div>
-
-                    <article class="dashboard-placeholder-card">
-                        <div class="dashboard-placeholder-icon" aria-hidden="true">02</div>
-
-                        <div class="dashboard-placeholder-copy">
-                            <h2>Project management is coming next.</h2>
-                            <p>
-                                This dashboard section is ready, but project storage
-                                and editing have not been connected yet.
-                            </p>
+                    @if ($projects->isEmpty())
+                        <p class="projects-empty">No project</p>
+                    @else
+                        <div class="project-list">
+                            @foreach ($projects as $project)
+                                <article class="project-row" tabindex="0" role="button" data-project="{{ $project->id }}" aria-label="Preview {{ $project->title }}">
+                                    <img src="{{ asset('storage/'.$project->logo_path) }}" alt="" class="project-logo">
+                                    <div class="project-row-copy"><h2>{{ $project->title }}</h2><p>{{ $project->status }}</p></div>
+                                    <div class="project-row-actions">
+                                        <a class="ghost-button" href="{{ route('admin.projects.edit', $project) }}" data-no-preview>Edit</a>
+                                        <form method="POST" action="{{ route('admin.projects.destroy', $project) }}" data-no-preview onsubmit="return confirm('Delete this project?')">@csrf @method('DELETE')<button class="ghost-button" type="submit">Delete</button></form>
+                                    </div>
+                                </article>
+                                <template id="project-data-{{ $project->id }}">{{ json_encode(['title'=>$project->title,'status'=>$project->status,'description'=>$project->short_description,'logo'=>asset('storage/'.$project->logo_path),'preview'=>$project->preview_path ? asset('storage/'.$project->preview_path) : null,'type'=>$project->preview_type,'url'=>route('projects.show',$project->slug)]) }}</template>
+                            @endforeach
                         </div>
-
-                        <button class="ghost-button"
-                                type="button"
-                                disabled
-                                aria-disabled="true">
-                            Edit projects · Soon
-                        </button>
-                    </article>
+                    @endif
+                    <div class="project-modal" id="projectModal" aria-hidden="true"><div class="project-modal-backdrop" data-close></div><section class="project-modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1"><button type="button" class="project-modal-close" data-close aria-label="Close">×</button><img class="project-modal-logo" id="modalLogo" alt=""><h2 id="modalTitle"></h2><p id="modalStatus"></p><p id="modalDescription"></p><div id="modalMedia"></div><div class="project-modal-actions"><a class="primary-button" id="modalDetails">View Details</a><button type="button" class="ghost-button" data-close>Back</button></div></section></div>
                 </section>
 
             {{-- SOCIAL MEDIA SECTION --}}
@@ -351,6 +350,14 @@
             userToggle.setAttribute("aria-expanded", "false");
         }
     });
+</script>
+<script>
+(() => {
+ const modal=document.getElementById('projectModal'); if(!modal)return; const panel=modal.querySelector('.project-modal-panel'); let previous=null;
+ function close(){modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');if(previous)previous.focus();}
+ function open(row){const data=JSON.parse(document.getElementById('project-data-'+row.dataset.project).textContent);previous=row;document.getElementById('modalTitle').textContent=data.title;document.getElementById('modalStatus').textContent=data.status;document.getElementById('modalDescription').textContent=data.description;document.getElementById('modalLogo').src=data.logo;document.getElementById('modalDetails').href=data.url;const media=document.getElementById('modalMedia');media.replaceChildren();if(data.preview){const el=document.createElement(data.type==='video'?'video':'img');el.src=data.preview;if(el.tagName==='VIDEO'){el.controls=true;el.playsInline=true;}else el.alt=data.title+' preview';media.append(el);}modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');panel.focus();}
+ document.querySelectorAll('.project-row').forEach(row=>{row.addEventListener('click',e=>{if(e.target.closest('[data-no-preview]'))return;open(row)});row.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target===row){e.preventDefault();open(row)}})});modal.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',close));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('is-open'))close();if(e.key==='Tab'&&modal.classList.contains('is-open')){const items=[...panel.querySelectorAll('a,button')];if(e.shiftKey&&document.activeElement===items[0]){e.preventDefault();items.at(-1).focus()}else if(!e.shiftKey&&document.activeElement===items.at(-1)){e.preventDefault();items[0].focus()}}});
+})();
 </script>
 </body>
 </html>

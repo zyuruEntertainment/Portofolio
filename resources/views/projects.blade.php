@@ -75,11 +75,15 @@
             </button>
         </header>
 
-        <main class="projects-main">
-            <p class="projects-empty">
-                this page is empty
-            </p>
+        <main class="projects-main projects-listing">
+            <section class="projects-intro"><p class="eyebrow">Selected work</p><h1 class="explore-title">Projects<span>.</span></h1><p class="explore-description">A selection of projects built with curiosity and care.</p></section>
+            @forelse ($projects as $project)
+                <button type="button" class="public-project-row" data-project="{{ $project->id }}"><img class="project-logo" src="{{ asset('storage/'.$project->logo_path) }}" alt=""><span class="public-project-copy"><strong>{{ $project->title }}</strong><small>{{ $project->status }}</small><span>{{ $project->short_description }}</span></span><span aria-hidden="true">↗</span></button>
+                <template id="project-data-{{ $project->id }}">{{ json_encode(['title'=>$project->title,'status'=>$project->status,'description'=>$project->short_description,'logo'=>asset('storage/'.$project->logo_path),'preview'=>$project->preview_path ? asset('storage/'.$project->preview_path) : null,'type'=>$project->preview_type,'url'=>route('projects.show',$project->slug)]) }}</template>
+            @empty <p class="projects-empty">No projects yet.</p>
+            @endforelse
         </main>
+        <div class="project-modal" id="projectModal" aria-hidden="true"><div class="project-modal-backdrop" data-close></div><section class="project-modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1"><button type="button" class="project-modal-close" data-close aria-label="Close">×</button><img class="project-modal-logo" id="modalLogo" alt=""><h2 id="modalTitle"></h2><p id="modalStatus"></p><p id="modalDescription"></p><div id="modalMedia"></div><div class="project-modal-actions"><a class="primary-button" id="modalDetails">View Details</a><button type="button" class="ghost-button" data-close>Back</button></div></section></div>
 
         <footer class="footer">
             <span>
@@ -164,6 +168,9 @@
             new Date().getFullYear();
 
         applyTheme(root.dataset.theme || "auto");
+    </script>
+    <script>
+    (()=>{const modal=document.getElementById('projectModal');if(!modal)return;const panel=modal.querySelector('.project-modal-panel');let previous=null;function close(){modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');previous?.focus()}function open(row){const d=JSON.parse(document.getElementById('project-data-'+row.dataset.project).textContent);previous=row;modal.querySelector('#modalTitle').textContent=d.title;modal.querySelector('#modalStatus').textContent=d.status;modal.querySelector('#modalDescription').textContent=d.description;modal.querySelector('#modalLogo').src=d.logo;modal.querySelector('#modalDetails').href=d.url;const media=modal.querySelector('#modalMedia');media.replaceChildren();if(d.preview){const el=document.createElement(d.type==='video'?'video':'img');el.src=d.preview;if(el.tagName==='VIDEO'){el.controls=true;el.playsInline=true}else el.alt=d.title+' preview';media.append(el)}modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');panel.focus()}document.querySelectorAll('.public-project-row').forEach(r=>r.addEventListener('click',()=>open(r)));modal.querySelectorAll('[data-close]').forEach(e=>e.addEventListener('click',close));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('is-open'))close();if(e.key==='Tab'&&modal.classList.contains('is-open')){const a=[...panel.querySelectorAll('a,button')];if(e.shiftKey&&document.activeElement===a[0]){e.preventDefault();a.at(-1).focus()}else if(!e.shiftKey&&document.activeElement===a.at(-1)){e.preventDefault();a[0].focus()}}})})();
     </script>
 </body>
 </html>
