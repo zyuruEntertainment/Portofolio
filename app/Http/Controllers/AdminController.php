@@ -26,7 +26,7 @@ class AdminController extends Controller
 
         return view('admin.dashboard', [
             'section' => $section,
-            'profile' => AdminProfile::query()->first(),
+            'profile' => AdminProfile::current(),
         ]);
     }
 }

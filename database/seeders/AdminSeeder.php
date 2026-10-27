@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Admin;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class AdminSeeder extends Seeder
 {
@@ -13,11 +12,13 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        Admin::updateOrCreate(
+        // Only create the account when it is missing so re-seeding never
+        // silently resets a password that has already been changed.
+        Admin::firstOrCreate(
             ['email' => 'admin@zyuru.com'],
             [
                 'name' => 'Admin Zyuru',
-                'password' => Hash::make('[removed]'),
+                'password' => '[removed]',
             ]
         );
     }

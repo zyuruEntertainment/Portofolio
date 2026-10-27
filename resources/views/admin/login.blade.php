@@ -94,6 +94,7 @@
                         value="{{ old('email') }}"
                         autocomplete="username"
                         placeholder="Enter your email"
+                        maxlength="255"
                         required
                         autofocus
                     >
@@ -107,6 +108,7 @@
                         name="password"
                         autocomplete="current-password"
                         placeholder="Enter your password"
+                        maxlength="255"
                         required
                     >
                 </div>

@@ -12,7 +12,16 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Admin routes are the only authenticated area in the application.
+        // Point guests to the admin login and signed-in admins to the
+        // dashboard instead of relying on the missing "login" route.
+        $middleware->redirectGuestsTo(
+            fn () => route('admin.login')
+        );
+
+        $middleware->redirectUsersTo(
+            fn () => route('admin.dashboard')
+        );
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

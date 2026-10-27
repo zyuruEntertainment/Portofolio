@@ -10,7 +10,7 @@ class ProfileController extends Controller
     public function index(): View
     {
         return view('profile', [
-            'profile' => AdminProfile::query()->first(),
+            'profile' => AdminProfile::current(),
         ]);
     }
 }

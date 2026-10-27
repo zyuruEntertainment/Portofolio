@@ -13,7 +13,7 @@ class AdminProfileController extends Controller
     public function edit(): View
     {
         return view('admin.edit-profile', [
-            'profile' => AdminProfile::query()->first(),
+            'profile' => AdminProfile::current(),
         ]);
     }
 
@@ -31,28 +31,38 @@ class AdminProfileController extends Controller
             'overview' => ['required', 'string', 'max:5000'],
         ]);
 
-        $profile = AdminProfile::query()->firstOrNew(['id' => 1]);
+        $profile = AdminProfile::current() ?? new AdminProfile;
+        $previousIconPath = $profile->icon_path;
 
         if ($request->hasFile('icon')) {
             $newPath = $request->file('icon')
                 ->store('profile-icons', 'public');
 
-            if ($profile->icon_path) {
-                Storage::disk('public')->delete(
-                    $profile->icon_path
-                );
+            if (! is_string($newPath)) {
+                return back()
+                    ->withErrors([
+                        'icon' => 'The profile photo could not be uploaded. Please try again.',
+                    ])
+                    ->withInput();
             }
 
             $profile->icon_path = $newPath;
         }
 
-        $profile->name = $validated['name'];
-        $profile->description = $validated['description'];
-        $profile->overview = $validated['overview'];
-        $profile->save();
+        $profile->fill([
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+            'overview' => $validated['overview'],
+        ])->save();
+
+        // Only remove the previous file once the new profile has been saved,
+        // so a failed save never leaves the database pointing at a missing file.
+        if ($previousIconPath && $previousIconPath !== $profile->icon_path) {
+            Storage::disk('public')->delete($previousIconPath);
+        }
 
         return redirect()
             ->route('admin.dashboard', ['section' => 'profile'])
-            ->with('status', 'Profile berhasil disimpan.');
+            ->with('status', 'Profile saved successfully.');
     }
 }

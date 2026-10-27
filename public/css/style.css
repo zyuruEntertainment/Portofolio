@@ -602,26 +602,26 @@ a:focus-visible {
 
 @keyframes page-enter {
     from {
-        opacity: 0;
-        transform: translateY(12px);
+        transform: translateY(6px);
     }
 
     to {
-        opacity: 1;
         transform: translateY(0);
     }
 }
 
+/* Keep the entrance subtle and fast. Avoid starting at opacity: 0 so the
+   page content is readable immediately instead of appearing after a delay. */
 .site-shell > .header {
-    animation: page-enter 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: page-enter 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .site-shell > main {
-    animation: page-enter 680ms cubic-bezier(0.22, 1, 0.36, 1) 70ms both;
+    animation: page-enter 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .site-shell > .footer {
-    animation: page-enter 600ms cubic-bezier(0.22, 1, 0.36, 1) 140ms both;
+    animation: page-enter 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* Respect reduced-motion preferences */
