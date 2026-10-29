@@ -60,6 +60,14 @@
     --button-text: #111111;
 }
 
+:root[data-active-theme="light"] {
+    color-scheme: light;
+}
+
+:root[data-active-theme="dark"] {
+    color-scheme: dark;
+}
+
 /* ========================================
    2. RESET & BASE
 ======================================== */

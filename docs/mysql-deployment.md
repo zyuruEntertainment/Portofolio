@@ -20,6 +20,9 @@ Salin `.env.example` menjadi `.env` di server atau gunakan secret manager/panel 
 APP_ENV=production
 APP_DEBUG=false
 APP_URL=https://domain-anda.example
+SESSION_SECURE_COOKIE=true
+SESSION_HTTP_ONLY=true
+SESSION_SAME_SITE=lax
 DB_CONNECTION=mysql
 DB_HOST=host-dari-panel
 DB_PORT=3306
@@ -28,7 +31,7 @@ DB_USERNAME=pengguna_dari_panel
 DB_PASSWORD=password_database
 ```
 
-Pertahankan `APP_KEY` saat memperbarui deployment. Untuk database session/cache/queue, gunakan `SESSION_DRIVER=database`, `CACHE_STORE=database`, dan `QUEUE_CONNECTION=database`; tabelnya dibuat oleh migrasi. Jika hosting tidak menyediakan worker antrean, gunakan `QUEUE_CONNECTION=sync` atau atur worker sesuai fasilitas hosting.
+Aktifkan sertifikat TLS dan paksa redirect HTTP ke HTTPS melalui panel hosting. Pertahankan `APP_KEY` saat memperbarui deployment. Gunakan cookie session `Secure`, `HttpOnly`, dan `SameSite=Lax` melalui variabel di atas. Untuk database session/cache/queue, gunakan `SESSION_DRIVER=database`, `CACHE_STORE=database`, dan `QUEUE_CONNECTION=database`; tabelnya dibuat oleh migrasi. Jika hosting tidak menyediakan worker antrean, gunakan `QUEUE_CONNECTION=sync` atau atur worker sesuai fasilitas hosting.
 
 ## Fresh install dan akun admin
 

@@ -146,6 +146,30 @@ class AdminProfileTest extends TestCase
         Storage::disk('public')->assertMissing('profile-icons/old.png');
     }
 
+    public function test_replacing_an_icon_does_not_remove_a_file_outside_the_profile_icon_directory(): void
+    {
+        Storage::fake('public');
+        Storage::disk('public')->put('projects/logos/keep.png', 'project logo');
+
+        $admin = $this->createAdmin();
+        AdminProfile::create($this->validPayload([
+            'icon_path' => 'profile-icons/../projects/logos/keep.png',
+        ]));
+
+        $png = base64_decode(
+            'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII='
+        );
+
+        $this->actingAs($admin, 'admin')->put(
+            route('admin.profile.update'),
+            $this->validPayload([
+                'icon' => UploadedFile::fake()->createWithContent('new.png', $png),
+            ])
+        )->assertRedirect(route('admin.dashboard', ['section' => 'profile']));
+
+        Storage::disk('public')->assertExists('projects/logos/keep.png');
+    }
+
     public function test_non_image_icons_are_rejected(): void
     {
         Storage::fake('public');

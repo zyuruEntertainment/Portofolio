@@ -58,11 +58,20 @@ class AdminProfileController extends Controller
         // Only remove the previous file once the new profile has been saved,
         // so a failed save never leaves the database pointing at a missing file.
         if ($previousIconPath && $previousIconPath !== $profile->icon_path) {
-            Storage::disk('public')->delete($previousIconPath);
+            $this->deleteProfileIcon($previousIconPath);
         }
 
         return redirect()
             ->route('admin.dashboard', ['section' => 'profile'])
             ->with('status', 'Profile saved successfully.');
+    }
+
+    private function deleteProfileIcon(?string $path): void
+    {
+        if (! is_string($path) || preg_match('/\Aprofile-icons\/[A-Za-z0-9_-][A-Za-z0-9._-]*\z/', $path) !== 1) {
+            return;
+        }
+
+        Storage::disk('public')->delete($path);
     }
 }

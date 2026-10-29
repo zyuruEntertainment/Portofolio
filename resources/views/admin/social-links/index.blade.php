@@ -25,7 +25,7 @@
                     <div class="social-link-actions">
                         <a class="ghost-button" href="{{ route('admin.social-links.edit', $link) }}">Edit</a>
                         <form method="POST" action="{{ route('admin.social-links.destroy', $link) }}"
-                              onsubmit="return confirm('Remove this social link?')">
+                              data-confirm="Remove this social link?">
                             @csrf @method('DELETE')
                             <button class="ghost-button" type="submit">Remove</button>
                         </form>

@@ -96,7 +96,7 @@
 </div>
 
 <script src="{{ asset('js/theme.js') }}" defer></script>
-<script>
+<script nonce="{{ request()->attributes->get('csp_nonce') }}">
     const logoInput = document.getElementById('logo');
     const logoPreview = document.getElementById('logoPreview');
     const previewInput = document.getElementById('preview');

@@ -126,7 +126,7 @@
 </div>
 
 <script src="{{ asset('js/theme.js') }}" defer></script>
-<script>
+<script nonce="{{ request()->attributes->get('csp_nonce') }}">
     const userToggle = document.querySelector('.admin-user-toggle');
     const userMenu = document.querySelector('.admin-user-menu');
 

@@ -168,7 +168,11 @@ class AdminAuthenticationTest extends TestCase
             'services.admin.password' => 'a secure test password',
         ]);
 
-        $this->seed(AdminSeeder::class);
+        $this->artisan('db:seed', [
+            '--class' => AdminSeeder::class,
+            '--force' => true,
+            '--no-interaction' => true,
+        ])->assertExitCode(0);
 
         $this->assertDatabaseCount('admins', 0);
     }

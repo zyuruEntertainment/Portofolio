@@ -61,7 +61,7 @@
                         'detailUrl' => route('projects.show', $project->slug),
                     ];
                 @endphp
-                <script type="application/json" id="project-data-{{ $project->id }}">@json($projectPreviewData)</script>
+                <script type="application/json" nonce="{{ request()->attributes->get('csp_nonce') }}" id="project-data-{{ $project->id }}">@json($projectPreviewData)</script>
             @empty
                 <p class="projects-empty">No projects yet.</p>
             @endforelse

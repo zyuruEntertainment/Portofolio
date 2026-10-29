@@ -1,4 +1,4 @@
-<script>
+<script nonce="{{ request()->attributes->get('csp_nonce') }}">
     (() => {
         let preference = 'auto';
 
@@ -17,8 +17,6 @@
 
         root.dataset.theme = preference;
         root.dataset.activeTheme = active;
-        root.style.colorScheme = active;
-
         const themeColor = document.querySelector('meta[name="theme-color"]');
         if (themeColor) themeColor.content = active === 'dark' ? '#0b0b0b' : '#ffffff';
     })();

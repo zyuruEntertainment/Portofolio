@@ -38,10 +38,13 @@ class AdminSocialLinkControllerTest extends TestCase
     public function test_admin_can_view_social_links_index(): void
     {
         $admin = $this->createAdmin();
+        SocialLink::create($this->validPayload());
 
         $this->actingAs($admin, 'admin')
             ->get(route('admin.dashboard', ['section' => 'social-media']))
-            ->assertOk();
+            ->assertOk()
+            ->assertSee('data-confirm="Remove this social link?"', false)
+            ->assertDontSee('onsubmit=', false);
     }
 
     public function test_admin_can_create_a_social_link(): void

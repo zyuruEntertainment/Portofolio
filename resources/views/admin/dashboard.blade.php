@@ -200,7 +200,7 @@
                                     <div class="project-row-copy"><h2>{{ $project->title }}</h2><p>{{ $project->status }}</p></div>
                                     <div class="project-row-actions">
                                         <a class="ghost-button" href="{{ route('admin.projects.edit', $project) }}" data-no-preview>Edit</a>
-                                        <form method="POST" action="{{ route('admin.projects.destroy', $project) }}" data-no-preview onsubmit="return confirm('Delete this project?')">@csrf @method('DELETE')<button class="ghost-button" type="submit">Delete</button></form>
+                                        <form method="POST" action="{{ route('admin.projects.destroy', $project) }}" data-no-preview data-confirm="Delete this project?">@csrf @method('DELETE')<button class="ghost-button" type="submit">Delete</button></form>
                                     </div>
                                 </article>
                                 <template id="project-data-{{ $project->id }}">{{ json_encode(['title'=>$project->title,'status'=>$project->status,'description'=>$project->short_description,'logo'=>asset('storage/'.$project->logo_path),'preview'=>$project->preview_path ? asset('storage/'.$project->preview_path) : null,'type'=>$project->preview_type,'url'=>route('projects.show',$project->slug)]) }}</template>
@@ -222,7 +222,7 @@
 </div>
 
 <script src="{{ asset('js/theme.js') }}" defer></script>
-<script>
+<script nonce="{{ request()->attributes->get('csp_nonce') }}">
 (() => {
     const userToggle = document.querySelector('.admin-user-toggle');
     const dropdown = document.querySelector('.admin-dropdown');
@@ -239,7 +239,7 @@
     });
 })();
 </script>
-<script>
+<script nonce="{{ request()->attributes->get('csp_nonce') }}">
 (() => {
  const modal=document.getElementById('projectModal'); if(!modal)return; const panel=modal.querySelector('.project-modal-panel'); let previous=null;
  function close(){modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');if(previous)previous.focus();}

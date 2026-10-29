@@ -23,7 +23,7 @@ class ProjectControllerTest extends TestCase
             ->assertDontSee('project-modal-close')
             ->assertDontSee('id="modalMedia"', false);
 
-        $pattern = '/<script type="application\/json" id="project-data-'.$project->id.'">(.*?)<\/script>/s';
+        $pattern = '/<script type="application\/json"[^>]*id="project-data-'.$project->id.'"[^>]*>(.*?)<\/script>/s';
         $this->assertSame(1, preg_match($pattern, $response->getContent(), $matches));
 
         $data = json_decode($matches[1], true, flags: JSON_THROW_ON_ERROR);

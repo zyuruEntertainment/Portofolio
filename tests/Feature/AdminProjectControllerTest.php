@@ -143,6 +143,23 @@ class AdminProjectControllerTest extends TestCase
         $this->get(route('projects.show', $project->slug))->assertNotFound();
     }
 
+    public function test_deleting_a_project_does_not_remove_a_file_outside_project_media_directories(): void
+    {
+        Storage::fake('public');
+        Storage::disk('public')->put('profile-icons/keep.png', 'profile image');
+
+        $admin = $this->createAdmin();
+        $project = $this->createProject([
+            'logo_path' => 'projects/../profile-icons/keep.png',
+        ]);
+
+        $this->actingAs($admin, 'admin')
+            ->delete(route('admin.projects.destroy', $project))
+            ->assertRedirect(route('admin.dashboard', ['section' => 'projects']));
+
+        Storage::disk('public')->assertExists('profile-icons/keep.png');
+    }
+
     private function createAdmin(): Admin
     {
         return Admin::create([

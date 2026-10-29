@@ -39,7 +39,7 @@ class AdminProjectController extends Controller
             $previewPath = $request->file('preview')->store('projects/previews', 'public');
 
             if (! is_string($previewPath)) {
-                Storage::disk('public')->delete($logoPath);
+                $this->deleteProjectMedia($logoPath);
 
                 return back()
                     ->withErrors(['preview' => 'The project preview could not be uploaded. Please try again.'])
@@ -86,7 +86,7 @@ class AdminProjectController extends Controller
 
             if (! is_string($newPreviewPath)) {
                 if (isset($data['logo_path'])) {
-                    Storage::disk('public')->delete($data['logo_path']);
+                    $this->deleteProjectMedia($data['logo_path']);
                 }
 
                 return back()
@@ -101,13 +101,13 @@ class AdminProjectController extends Controller
         }
         $project->update($data);
         if (isset($data['logo_path']) && $oldLogo !== $data['logo_path']) {
-            Storage::disk('public')->delete($oldLogo);
+            $this->deleteProjectMedia($oldLogo);
         }
         if (isset($data['preview_path']) && $oldPreview && $oldPreview !== $data['preview_path']) {
-            Storage::disk('public')->delete($oldPreview);
+            $this->deleteProjectMedia($oldPreview);
         }
         if (array_key_exists('preview_path', $data) && $data['preview_path'] === null && $oldPreview) {
-            Storage::disk('public')->delete($oldPreview);
+            $this->deleteProjectMedia($oldPreview);
         }
 
         return $this->backToProjects('Project updated successfully.');
@@ -118,9 +118,7 @@ class AdminProjectController extends Controller
         $paths = array_filter([$project->logo_path, $project->preview_path]);
         $project->delete();
         foreach ($paths as $path) {
-            if (str_starts_with($path, 'projects/')) {
-                Storage::disk('public')->delete($path);
-            }
+            $this->deleteProjectMedia($path);
         }
 
         return $this->backToProjects('Project deleted successfully.');
@@ -138,6 +136,15 @@ class AdminProjectController extends Controller
             'status' => ['required', 'in:'.implode(',', self::STATUSES)],
             'github_url' => ['required', 'url', 'regex:/^https:\/\/github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\/?$/i', 'max:2048'],
         ]);
+    }
+
+    private function deleteProjectMedia(?string $path): void
+    {
+        if (! is_string($path) || preg_match('/\Aprojects\/(?:logos|previews)\/[A-Za-z0-9_-][A-Za-z0-9._-]*\z/', $path) !== 1) {
+            return;
+        }
+
+        Storage::disk('public')->delete($path);
     }
 
     private function backToProjects(string $message): RedirectResponse

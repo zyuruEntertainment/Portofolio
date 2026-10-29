@@ -13,8 +13,6 @@
 
         root.dataset.theme = preference;
         root.dataset.activeTheme = active;
-        root.style.colorScheme = active;
-
         if (themeColor) {
             themeColor.content = active === 'dark' ? '#0b0b0b' : '#ffffff';
         }
@@ -37,6 +35,14 @@
             applyTheme(next);
         });
     }
+
+    document.querySelectorAll('form[data-confirm]').forEach((form) => {
+        form.addEventListener('submit', (event) => {
+            if (!window.confirm(form.dataset.confirm)) {
+                event.preventDefault();
+            }
+        });
+    });
 
     systemTheme.addEventListener('change', () => {
         if (root.dataset.theme === 'auto') applyTheme('auto');

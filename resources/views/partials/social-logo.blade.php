@@ -59,7 +59,7 @@
     @endswitch
 </svg>
 
-<style>
+<style nonce="{{ request()->attributes->get('csp_nonce') }}">
     .social-logo-icon {
         display: block;
         width: 28px;
