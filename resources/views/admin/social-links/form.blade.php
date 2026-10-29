@@ -21,7 +21,6 @@
     </header>
 
     <main class="editor-main">
-        <a class="editor-back-link" href="{{ route('admin.dashboard', ['section' => 'social-media']) }}">← Back to social links</a>
         <section class="edit-profile-heading">
             <p class="eyebrow">Social link settings</p>
             <h1>{{ $link->exists ? 'Edit social link.' : 'Add social link.' }}</h1>
@@ -41,7 +40,6 @@
                         </option>
                     @endforeach
                 </select>
-                <small class="field-hint">Expected link starts with: {{ $base }}</small>
                 @error('platform') <small class="field-error">{{ $message }}</small> @enderror
             </div>
 
@@ -49,14 +47,8 @@
                 <label for="url">Link URL</label>
                 <input id="url" name="url" type="url" value="{{ old('url', $link->url) }}" maxlength="2048" required
                        placeholder="https://...">
+                <small class="field-hint">Paste the profile or channel URL for this platform.</small>
                 @error('url') <small class="field-error">{{ $message }}</small> @enderror
-            </div>
-
-            <div class="form-field">
-                <label for="sort_order">Sort order</label>
-                <input id="sort_order" name="sort_order" type="number" value="{{ old('sort_order', $link->sort_order ?? 0) }}" min="0" required>
-                <small class="field-hint">Lower numbers appear first.</small>
-                @error('sort_order') <small class="field-error">{{ $message }}</small> @enderror
             </div>
 
             <div class="form-actions">

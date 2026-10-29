@@ -19,9 +19,18 @@
             <path fill="currentColor" d="M18.9 2h3.3l-7.2 8.2L23.5 22h-6.7l-5.2-6.8L5.7 22H2.3l7.7-8.9L1.5 2h6.9l4.7 6.2L18.9 2Zm-1.2 17.8h1.8L7.4 4.1H5.5l12.2 15.7Z" />
         @break
         @case('tiktok')
-            <path fill="#25F4EE" d="M15.8 3h3.1c.2 1.6 1.1 3.1 2.7 3.8v3.1a8.1 8.1 0 0 1-5.8-2.2v7.1a6.3 6.3 0 1 1-6.3-6.3c.4 0 .8 0 1.2.1v3.5a2.9 2.9 0 1 0 1.8 2.7V3h3.3Z" transform="translate(-1.2 1)" />
-            <path fill="#FE2C55" d="M15.8 3h3.1c.2 1.6 1.1 3.1 2.7 3.8v3.1a8.1 8.1 0 0 1-5.8-2.2v7.1a6.3 6.3 0 1 1-6.3-6.3c.4 0 .8 0 1.2.1v3.5a2.9 2.9 0 1 0 1.8 2.7V3h3.3Z" transform="translate(.7 -.5)" />
-            <path fill="currentColor" d="M15.8 3h3.1c.2 1.6 1.1 3.1 2.7 3.8v3.1a8.1 8.1 0 0 1-5.8-2.2v7.1a6.3 6.3 0 1 1-6.3-6.3c.4 0 .8 0 1.2.1v3.5a2.9 2.9 0 1 0 1.8 2.7V3h3.3Z" />
+            <g fill="none" stroke="#25F4EE" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.4" transform="translate(-.7 .5)">
+                <path d="M14 4v11.2a4.1 4.1 0 1 1-3-3.95" />
+                <path d="M14 4c.7 2.65 2.55 4.5 5.1 4.9" />
+            </g>
+            <g fill="none" stroke="#FE2C55" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.4" transform="translate(.55 -.35)">
+                <path d="M14 4v11.2a4.1 4.1 0 1 1-3-3.95" />
+                <path d="M14 4c.7 2.65 2.55 4.5 5.1 4.9" />
+            </g>
+            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.4">
+                <path d="M14 4v11.2a4.1 4.1 0 1 1-3-3.95" />
+                <path d="M14 4c.7 2.65 2.55 4.5 5.1 4.9" />
+            </g>
         @break
         @case('youtube')
             <path fill="#FF0033" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8Z" />

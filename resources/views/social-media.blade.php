@@ -20,24 +20,37 @@
     </header>
 
     <main class="social-media-main">
-        <section class="social-media-intro">
-            <h1 class="social-media-title">
+        <section class="social-media-intro" aria-labelledby="social-media-title">
+            <h1 class="social-media-title" id="social-media-title">
                 <span>Connect with</span>
                 <span>us</span>
             </h1>
             <p class="social-media-description">
                 Follow our latest updates, projects, and experiments across social platforms.
             </p>
+            <a class="discover-button social-media-back-link" href="{{ route('explore') }}">
+                <span>Back to Explore</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 19 19 5"></path>
+                    <path d="M6 5h13v13"></path>
+                </svg>
+            </a>
         </section>
 
         <section class="social-media-list" aria-label="Social media links">
             @forelse ($links as $link)
                 <a href="{{ $link->url }}" target="_blank" rel="noopener"
-                   class="social-link-item{{ $link->isValid() ? '' : ' social-link-item--invalid' }}"
-                   aria-label="Visit {{ strtoupper($link->platform) }}">
-                    <span class="social-link-label">{{ strtoupper($link->platform) }}</span>
-                    <span class="social-link-logo" aria-hidden="true">
-                        @include('partials.social-logo', ['platform' => $link->platform, 'valid' => $link->isValid()])
+                   class="social-media-card{{ $link->isValid() ? '' : ' social-media-card--invalid' }}"
+                   aria-label="Visit {{ ucfirst($link->platform) }}">
+                    <span class="social-media-card-top">
+                        <span class="social-media-logo-frame">
+                            @include('partials.social-logo', ['platform' => $link->platform, 'valid' => $link->isValid()])
+                        </span>
+                        <span class="social-media-card-arrow" aria-hidden="true">↗</span>
+                    </span>
+                    <span class="social-media-card-copy">
+                        <strong>{{ ucfirst($link->platform) }}</strong>
+                        <span>Follow our updates and new work on {{ ucfirst($link->platform) }}.</span>
                     </span>
                 </a>
             @empty
