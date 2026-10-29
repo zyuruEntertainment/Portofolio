@@ -14,6 +14,11 @@ class DatabaseSeederTest extends TestCase
 
     public function test_database_seeder_can_run_more_than_once(): void
     {
+        config([
+            'services.admin.email' => 'admin@zyuru.com',
+            'services.admin.password' => 'a secure test password',
+        ]);
+
         $this->seed(DatabaseSeeder::class);
         $this->seed(DatabaseSeeder::class);
 

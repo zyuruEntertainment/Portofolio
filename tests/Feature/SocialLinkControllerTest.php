@@ -28,7 +28,7 @@ class SocialLinkControllerTest extends TestCase
 
         $this->get(route('social-media'))
             ->assertOk()
-            ->assertSee('GITHUB')
+            ->assertSee('Github')
             ->assertDontSee('TWITTER');
     }
 
@@ -50,7 +50,7 @@ class SocialLinkControllerTest extends TestCase
 
         $response = $this->get(route('social-media'));
         $response->assertOk();
-        $response->assertSeeInOrder(['INSTAGRAM', 'GITHUB']);
+        $response->assertSeeInOrder(['Instagram', 'Github']);
     }
 
     public function test_public_social_media_page_shows_empty_message_when_no_links(): void
@@ -58,5 +58,20 @@ class SocialLinkControllerTest extends TestCase
         $this->get(route('social-media'))
             ->assertOk()
             ->assertSee('No social links available yet.');
+    }
+
+    public function test_public_social_media_page_does_not_link_to_invalid_legacy_urls(): void
+    {
+        SocialLink::create([
+            'platform' => 'facebook',
+            'url' => 'https://www.facebook.com.attacker.example/zyuru',
+            'sort_order' => 0,
+            'is_active' => true,
+        ]);
+
+        $this->get(route('social-media'))
+            ->assertOk()
+            ->assertSee('No social links available yet.')
+            ->assertDontSee('facebook.com.attacker.example');
     }
 }

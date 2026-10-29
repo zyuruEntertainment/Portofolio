@@ -72,6 +72,10 @@ class AdminSocialLinkController extends Controller
         ]);
 
         $validator->after(function ($validator) use ($request): void {
+            if ($validator->errors()->hasAny(['platform', 'url'])) {
+                return;
+            }
+
             $link = new SocialLink([
                 'platform' => $request->input('platform'),
                 'url' => $request->input('url'),

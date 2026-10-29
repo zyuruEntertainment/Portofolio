@@ -113,13 +113,18 @@ class AdminAuthenticationTest extends TestCase
 
     public function test_admin_seeder_does_not_reset_an_existing_password(): void
     {
+        config([
+            'services.admin.email' => 'admin@zyuru.com',
+            'services.admin.password' => 'a secure test password',
+        ]);
+
         $this->seed(AdminSeeder::class);
 
         $admin = Admin::query()
             ->where('email', 'admin@zyuru.com')
             ->firstOrFail();
 
-        $this->assertTrue(Hash::check('[removed]', $admin->password));
+        $this->assertTrue(Hash::check('a secure test password', $admin->password));
 
         $admin->update(['password' => 'changed-password']);
 
@@ -129,5 +134,29 @@ class AdminAuthenticationTest extends TestCase
         $this->assertTrue(
             Hash::check('changed-password', $admin->fresh()->password)
         );
+    }
+
+    public function test_admin_seeder_does_not_create_a_default_account_without_credentials(): void
+    {
+        config([
+            'services.admin.email' => null,
+            'services.admin.password' => null,
+        ]);
+
+        $this->seed(AdminSeeder::class);
+
+        $this->assertDatabaseCount('admins', 0);
+    }
+
+    public function test_admin_seeder_rejects_a_short_configured_password(): void
+    {
+        config([
+            'services.admin.email' => 'admin@zyuru.com',
+            'services.admin.password' => 'short-password',
+        ]);
+
+        $this->seed(AdminSeeder::class);
+
+        $this->assertDatabaseCount('admins', 0);
     }
 }

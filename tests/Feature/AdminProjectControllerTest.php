@@ -4,9 +4,11 @@ namespace Tests\Feature;
 
 use App\Models\Admin;
 use App\Models\Project;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Mockery;
 use Tests\TestCase;
 
 class AdminProjectControllerTest extends TestCase
@@ -47,6 +49,24 @@ class AdminProjectControllerTest extends TestCase
         foreach (Project::query()->get() as $project) {
             Storage::disk('public')->assertExists($project->logo_path);
         }
+    }
+
+    public function test_admin_receives_a_validation_error_when_logo_storage_fails(): void
+    {
+        $publicDisk = Mockery::mock(FilesystemAdapter::class);
+        $publicDisk->shouldReceive('putFileAs')->once()->andReturn(false);
+        Storage::shouldReceive('disk')->with('public')->andReturn($publicDisk);
+        $admin = $this->createAdmin();
+
+        $this->actingAs($admin, 'admin')
+            ->from(route('admin.projects.create'))
+            ->post(route('admin.projects.store'), $this->validPayload([
+                'logo' => $this->logoUpload(),
+            ]))
+            ->assertRedirect(route('admin.projects.create'))
+            ->assertSessionHasErrors('logo');
+
+        $this->assertDatabaseCount('projects', 0);
     }
 
     public function test_admin_edits_project_content_without_changing_its_slug_or_existing_media(): void

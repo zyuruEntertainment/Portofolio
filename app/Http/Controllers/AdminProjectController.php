@@ -25,9 +25,33 @@ class AdminProjectController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $data = $this->validated($request, true);
-        $data['logo_path'] = $request->file('logo')->store('projects/logos', 'public');
-        $data['preview_path'] = $request->hasFile('preview') ? $request->file('preview')->store('projects/previews', 'public') : null;
-        $data['preview_type'] = $request->hasFile('preview') ? ($request->file('preview')->getMimeType() === 'video/mp4' ? 'video' : 'image') : null;
+        $logoPath = $request->file('logo')->store('projects/logos', 'public');
+
+        if (! is_string($logoPath)) {
+            return back()
+                ->withErrors(['logo' => 'The project logo could not be uploaded. Please try again.'])
+                ->withInput();
+        }
+
+        $previewPath = null;
+
+        if ($request->hasFile('preview')) {
+            $previewPath = $request->file('preview')->store('projects/previews', 'public');
+
+            if (! is_string($previewPath)) {
+                Storage::disk('public')->delete($logoPath);
+
+                return back()
+                    ->withErrors(['preview' => 'The project preview could not be uploaded. Please try again.'])
+                    ->withInput();
+            }
+        }
+
+        $data['logo_path'] = $logoPath;
+        $data['preview_path'] = $previewPath;
+        $data['preview_type'] = $request->hasFile('preview')
+            ? ($request->file('preview')->getMimeType() === 'video/mp4' ? 'video' : 'image')
+            : null;
         $data['slug'] = Project::uniqueSlug($data['title']);
         Project::create($data);
 
@@ -40,14 +64,37 @@ class AdminProjectController extends Controller
         $oldLogo = $project->logo_path;
         $oldPreview = $project->preview_path;
         $data['slug'] = Project::uniqueSlug($data['title'], $project);
+
         if ($request->hasFile('logo')) {
-            $data['logo_path'] = $request->file('logo')->store('projects/logos', 'public');
+            $newLogoPath = $request->file('logo')->store('projects/logos', 'public');
+
+            if (! is_string($newLogoPath)) {
+                return back()
+                    ->withErrors(['logo' => 'The project logo could not be uploaded. Please try again.'])
+                    ->withInput();
+            }
+
+            $data['logo_path'] = $newLogoPath;
         }
+
         if ($request->boolean('remove_preview')) {
             $data['preview_path'] = null;
         }
+
         if ($request->hasFile('preview')) {
-            $data['preview_path'] = $request->file('preview')->store('projects/previews', 'public');
+            $newPreviewPath = $request->file('preview')->store('projects/previews', 'public');
+
+            if (! is_string($newPreviewPath)) {
+                if (isset($data['logo_path'])) {
+                    Storage::disk('public')->delete($data['logo_path']);
+                }
+
+                return back()
+                    ->withErrors(['preview' => 'The project preview could not be uploaded. Please try again.'])
+                    ->withInput();
+            }
+
+            $data['preview_path'] = $newPreviewPath;
             $data['preview_type'] = $request->file('preview')->getMimeType() === 'video/mp4' ? 'video' : 'image';
         } elseif ($request->boolean('remove_preview')) {
             $data['preview_type'] = null;

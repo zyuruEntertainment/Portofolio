@@ -8,6 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 #[Fillable(['platform', 'url', 'sort_order', 'is_active'])]
 class SocialLink extends Model
 {
+    private const PLATFORM_HOSTS = [
+        'facebook' => ['facebook.com', 'www.facebook.com', 'm.facebook.com'],
+        'instagram' => ['instagram.com', 'www.instagram.com'],
+        'twitter' => ['x.com', 'www.x.com', 'twitter.com', 'www.twitter.com'],
+        'x' => ['x.com', 'www.x.com', 'twitter.com', 'www.twitter.com'],
+        'tiktok' => ['tiktok.com', 'www.tiktok.com'],
+        'youtube' => ['youtube.com', 'www.youtube.com', 'm.youtube.com', 'youtu.be'],
+        'linkedin' => ['linkedin.com', 'www.linkedin.com'],
+        'github' => ['github.com', 'www.github.com'],
+        'discord' => ['discord.com', 'www.discord.com', 'discord.gg'],
+        'telegram' => ['t.me', 'telegram.me'],
+        'threads' => ['threads.net', 'www.threads.net'],
+        'snapchat' => ['snapchat.com', 'www.snapchat.com'],
+    ];
+
     public static array $platforms = [
         'facebook' => 'https://www.facebook.com/',
         'instagram' => 'https://www.instagram.com/',
@@ -25,17 +40,20 @@ class SocialLink extends Model
 
     public function detectedPlatform(): ?string
     {
-        $url = parse_url((string) $this->url, PHP_URL_HOST);
-
-        if (! $url) {
+        if (! is_string($this->url)) {
             return null;
         }
 
-        $url = strtolower($url);
+        $url = parse_url($this->url);
 
-        foreach (static::$platforms as $platform => $base) {
-            $host = parse_url($base, PHP_URL_HOST);
-            if ($host && str_starts_with($url, $host)) {
+        if (! is_array($url) || strtolower($url['scheme'] ?? '') !== 'https') {
+            return null;
+        }
+
+        $host = strtolower(rtrim($url['host'] ?? '', '.'));
+
+        foreach (self::PLATFORM_HOSTS as $platform => $hosts) {
+            if (in_array($host, $hosts, true)) {
                 return $platform;
             }
         }
@@ -45,6 +63,19 @@ class SocialLink extends Model
 
     public function isValid(): bool
     {
-        return $this->detectedPlatform() !== null;
+        if (! is_string($this->platform) || ! is_string($this->url)) {
+            return false;
+        }
+
+        $url = parse_url($this->url);
+        $hosts = self::PLATFORM_HOSTS[$this->platform] ?? [];
+
+        if (! is_array($url) || strtolower($url['scheme'] ?? '') !== 'https') {
+            return false;
+        }
+
+        $host = strtolower(rtrim($url['host'] ?? '', '.'));
+
+        return in_array($host, $hosts, true);
     }
 }

@@ -12,13 +12,22 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        // Only create the account when it is missing so re-seeding never
-        // silently resets a password that has already been changed.
+        $email = config('services.admin.email');
+        $password = config('services.admin.password');
+
+        if (! is_string($email) || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+            return;
+        }
+
+        if (! is_string($password) || mb_strlen($password) < 16) {
+            return;
+        }
+
         Admin::firstOrCreate(
-            ['email' => 'admin@zyuru.com'],
+            ['email' => $email],
             [
                 'name' => 'Admin Zyuru',
-                'password' => '[removed]',
+                'password' => $password,
             ]
         );
     }

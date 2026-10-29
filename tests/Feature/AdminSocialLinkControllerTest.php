@@ -106,6 +106,69 @@ class AdminSocialLinkControllerTest extends TestCase
         $this->assertDatabaseCount('social_links', 0);
     }
 
+    public function test_admin_cannot_create_a_social_link_using_a_lookalike_host(): void
+    {
+        $admin = $this->createAdmin();
+
+        $this->actingAs($admin, 'admin')
+            ->from(route('admin.social-links.create'))
+            ->post(route('admin.social-links.store'), $this->validPayload([
+                'platform' => 'facebook',
+                'url' => 'https://www.facebook.com.attacker.example/zyuru',
+            ]))
+            ->assertRedirect(route('admin.social-links.create'))
+            ->assertSessionHasErrors('url');
+
+        $this->assertDatabaseCount('social_links', 0);
+    }
+
+    public function test_admin_cannot_use_a_different_platform_host(): void
+    {
+        $admin = $this->createAdmin();
+
+        $this->actingAs($admin, 'admin')
+            ->from(route('admin.social-links.create'))
+            ->post(route('admin.social-links.store'), $this->validPayload([
+                'platform' => 'facebook',
+                'url' => 'https://github.com/zyuru',
+            ]))
+            ->assertRedirect(route('admin.social-links.create'))
+            ->assertSessionHasErrors('url');
+
+        $this->assertDatabaseCount('social_links', 0);
+    }
+
+    public function test_admin_cannot_create_a_social_link_over_http(): void
+    {
+        $admin = $this->createAdmin();
+
+        $this->actingAs($admin, 'admin')
+            ->from(route('admin.social-links.create'))
+            ->post(route('admin.social-links.store'), $this->validPayload([
+                'url' => 'http://github.com/zyuru',
+            ]))
+            ->assertRedirect(route('admin.social-links.create'))
+            ->assertSessionHasErrors('url');
+
+        $this->assertDatabaseCount('social_links', 0);
+    }
+
+    public function test_admin_social_link_validation_handles_array_input_without_server_error(): void
+    {
+        $admin = $this->createAdmin();
+
+        $this->actingAs($admin, 'admin')
+            ->from(route('admin.social-links.create'))
+            ->post(route('admin.social-links.store'), [
+                'platform' => ['facebook'],
+                'url' => ['https://facebook.com/zyuru'],
+            ])
+            ->assertRedirect(route('admin.social-links.create'))
+            ->assertSessionHasErrors(['platform', 'url']);
+
+        $this->assertDatabaseCount('social_links', 0);
+    }
+
     public function test_admin_cannot_create_a_social_link_with_invalid_url(): void
     {
         $admin = $this->createAdmin();
