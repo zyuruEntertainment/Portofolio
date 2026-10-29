@@ -1,0 +1,126 @@
+/* ========================================
+   ADMIN SOCIAL LINKS
+   Minimalist rows consistent with admin project rows.
+======================================== */
+
+.social-link-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 24px;
+    width: 100%;
+}
+
+.social-link-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px 0;
+    border: 0;
+    border-bottom: 1px solid var(--card-border);
+    background: transparent;
+    color: var(--foreground);
+    text-align: left;
+    cursor: default;
+}
+
+.social-link-row:last-child {
+    border-bottom: 0;
+}
+
+.social-link-row:hover {
+    background: var(--border);
+}
+
+.social-link-row:focus-visible {
+    outline: 2px solid var(--foreground);
+    outline-offset: 3px;
+}
+
+.social-link-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+    min-width: 0;
+}
+
+.social-link-logo {
+    flex: 0 0 auto;
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    min-height: 22px;
+}
+
+.social-link-logo .social-logo-icon {
+    width: 22px;
+    height: 22px;
+}
+
+.social-link-name {
+    margin: 0;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--foreground);
+    min-width: 0;
+}
+
+.social-link-detected {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 500;
+}
+
+.social-link-detected.is-invalid {
+    color: #d9465f;
+}
+
+.social-link-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.social-links-empty {
+    margin: 40px 0;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.6;
+    text-align: center;
+}
+
+@media (max-width: 650px) {
+    .social-link-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 0;
+    }
+
+    .social-link-row:last-child {
+        border-bottom: 0;
+    }
+
+    .social-link-info {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .social-link-name {
+        font-size: 0.9rem;
+    }
+
+    .social-link-actions {
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 8px;
+    }
+}

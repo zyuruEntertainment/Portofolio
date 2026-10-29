@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AdminProfile;
 use App\Models\Project;
+use App\Models\SocialLink;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -29,6 +30,7 @@ class AdminController extends Controller
             'section' => $section,
             'profile' => AdminProfile::current(),
             'projects' => Project::latest()->get(),
+            'socialLinks' => SocialLink::orderBy('sort_order')->orderBy('id')->get(),
         ]);
     }
 }

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin-polish.css') }}">
     <link rel="stylesheet" href="{{ asset('css/projects.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/social-links.css') }}">
 </head>
 <body>
 <div class="site-shell admin-shell">
@@ -212,37 +213,7 @@
             {{-- SOCIAL MEDIA SECTION --}}
             @else
 
-                <section class="dashboard-section">
-                    <div class="dashboard-section-heading">
-                        <div>
-                            <p class="eyebrow">Admin / Social Media</p>
-                            <h1 class="dashboard-title">Social media.</h1>
-                            <p class="dashboard-description">
-                                Manage the social links shown across your portfolio.
-                            </p>
-                        </div>
-                    </div>
-
-                    <article class="dashboard-placeholder-card">
-                        <div class="dashboard-placeholder-icon" aria-hidden="true">03</div>
-
-                        <div class="dashboard-placeholder-copy">
-                            <h2>Social media management is coming next.</h2>
-                            <p>
-                                This section has its own dashboard view.
-                                Editing will be enabled after its data and save flow
-                                are implemented.
-                            </p>
-                        </div>
-
-                        <button class="ghost-button"
-                                type="button"
-                                disabled
-                                aria-disabled="true">
-                            Edit social media · Soon
-                        </button>
-                    </article>
-                </section>
+                @include('admin.social-links.index', ['links' => $socialLinks])
 
             @endif
 

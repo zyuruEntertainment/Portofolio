@@ -1,0 +1,193 @@
+/* ========================================
+   SOCIAL MEDIA PAGE
+   Minimalist, consistent with /projects.
+======================================== */
+
+.social-media-main {
+    flex: 1;
+    padding-block: 42px 80px;
+    min-width: 0;
+}
+
+.social-media-intro {
+    min-width: 0;
+    max-width: 680px;
+    margin-top: 10px;
+}
+
+.social-media-title {
+    margin: 0;
+    font-size: clamp(48px, 6.5vw, 100px);
+    font-weight: 720;
+    letter-spacing: -.075em;
+    line-height: 1.04;
+}
+
+.social-media-title span {
+    display: block;
+}
+
+.social-media-title span:last-child {
+    color: var(--muted);
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 450;
+    letter-spacing: -.065em;
+}
+
+.social-media-description {
+    max-width: 660px;
+    margin: 26px 0 0;
+    color: var(--foreground);
+    font-size: clamp(16px, 1.45vw, 20px);
+    line-height: 1.65;
+}
+
+.social-media-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 42px;
+    width: 100%;
+}
+
+.social-link-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: clamp(20px, 2vw, 32px);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    background: transparent;
+    color: var(--foreground);
+    text-decoration: none;
+    font-size: 1.15rem;
+    font-weight: 500;
+    transition: background var(--transition), border-color var(--transition), transform var(--transition), color var(--transition);
+}
+
+.social-link-item:hover {
+    background: var(--border);
+    border-color: var(--muted);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(var(--shadow-color), .055);
+}
+
+.social-link-item:focus-visible {
+    outline: 2px solid var(--foreground);
+    outline-offset: 3px;
+}
+
+.social-link-item--invalid {
+    border-color: rgba(217, 70, 95, 0.3);
+    background: rgba(217, 70, 95, 0.05);
+    color: #d9465f;
+}
+
+.social-link-item--invalid:hover {
+    border-color: #d9465f;
+    background: rgba(217, 70, 95, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(var(--shadow-color), .055);
+}
+
+.social-link-label {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.social-link-logo {
+    flex: 0 0 auto;
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    min-height: 22px;
+}
+
+.social-link-logo .social-logo-icon {
+    width: 22px;
+    height: 22px;
+}
+
+.social-media-empty {
+    margin: 40px 0;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.6;
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    .social-media-main {
+        padding-block: 44px 64px;
+    }
+
+    .social-media-intro {
+        max-width: 720px;
+        margin-top: 0;
+    }
+
+    .social-media-title {
+        font-size: clamp(54px, 10vw, 82px);
+    }
+
+    .social-media-list {
+        gap: 12px;
+        margin-top: 36px;
+    }
+
+    .social-link-item {
+        padding: 20px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .social-media-main {
+        padding-block: 38px 52px;
+    }
+
+    .social-media-title {
+        font-size: clamp(42px, 10.8vw, 60px);
+        letter-spacing: -.07em;
+    }
+
+    .social-media-title span:last-child {
+        letter-spacing: -.06em;
+    }
+
+    .social-media-description {
+        margin-top: 20px;
+        font-size: 15px;
+        line-height: 1.8;
+    }
+
+    .social-link-item {
+        padding: 18px 20px;
+        font-size: 1rem;
+    }
+
+    .social-link-logo {
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
+        min-height: 20px;
+    }
+
+    .social-link-logo .social-logo-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .social-link-item {
+        transition: none;
+    }
+
+    .social-link-item:hover {
+        transform: none;
+        box-shadow: none;
+    }
+}

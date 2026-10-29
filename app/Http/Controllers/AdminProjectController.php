@@ -40,16 +40,28 @@ class AdminProjectController extends Controller
         $oldLogo = $project->logo_path;
         $oldPreview = $project->preview_path;
         $data['slug'] = Project::uniqueSlug($data['title'], $project);
-        if ($request->hasFile('logo')) $data['logo_path'] = $request->file('logo')->store('projects/logos', 'public');
-        if ($request->boolean('remove_preview')) $data['preview_path'] = null;
+        if ($request->hasFile('logo')) {
+            $data['logo_path'] = $request->file('logo')->store('projects/logos', 'public');
+        }
+        if ($request->boolean('remove_preview')) {
+            $data['preview_path'] = null;
+        }
         if ($request->hasFile('preview')) {
             $data['preview_path'] = $request->file('preview')->store('projects/previews', 'public');
             $data['preview_type'] = $request->file('preview')->getMimeType() === 'video/mp4' ? 'video' : 'image';
-        } elseif ($request->boolean('remove_preview')) $data['preview_type'] = null;
+        } elseif ($request->boolean('remove_preview')) {
+            $data['preview_type'] = null;
+        }
         $project->update($data);
-        if (isset($data['logo_path']) && $oldLogo !== $data['logo_path']) Storage::disk('public')->delete($oldLogo);
-        if (isset($data['preview_path']) && $oldPreview && $oldPreview !== $data['preview_path']) Storage::disk('public')->delete($oldPreview);
-        if (array_key_exists('preview_path', $data) && $data['preview_path'] === null && $oldPreview) Storage::disk('public')->delete($oldPreview);
+        if (isset($data['logo_path']) && $oldLogo !== $data['logo_path']) {
+            Storage::disk('public')->delete($oldLogo);
+        }
+        if (isset($data['preview_path']) && $oldPreview && $oldPreview !== $data['preview_path']) {
+            Storage::disk('public')->delete($oldPreview);
+        }
+        if (array_key_exists('preview_path', $data) && $data['preview_path'] === null && $oldPreview) {
+            Storage::disk('public')->delete($oldPreview);
+        }
 
         return $this->backToProjects('Project updated successfully.');
     }
@@ -58,7 +70,11 @@ class AdminProjectController extends Controller
     {
         $paths = array_filter([$project->logo_path, $project->preview_path]);
         $project->delete();
-        foreach ($paths as $path) if (str_starts_with($path, 'projects/')) Storage::disk('public')->delete($path);
+        foreach ($paths as $path) {
+            if (str_starts_with($path, 'projects/')) {
+                Storage::disk('public')->delete($path);
+            }
+        }
 
         return $this->backToProjects('Project deleted successfully.');
     }

@@ -170,7 +170,9 @@
                 </a>
 
                 {{-- Social Media --}}
-                <div class="explore-card">
+                <a href="{{ route('social-media') }}"
+                    class="explore-card"
+                    aria-label="Open social media page">
                     <div class="explore-card-top">
                         <span class="explore-card-number">
                             03
@@ -211,7 +213,7 @@
                             ↗
                         </span>
                     </div>
-                </div>
+                </a>
 
             </section>
 
