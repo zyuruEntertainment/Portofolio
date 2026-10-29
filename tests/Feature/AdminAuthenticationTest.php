@@ -159,4 +159,17 @@ class AdminAuthenticationTest extends TestCase
 
         $this->assertDatabaseCount('admins', 0);
     }
+
+    public function test_admin_seeder_rejects_a_weak_password_in_production(): void
+    {
+        $this->app['env'] = 'production';
+        config([
+            'services.admin.email' => 'admin@zyuru.com',
+            'services.admin.password' => 'a secure test password',
+        ]);
+
+        $this->seed(AdminSeeder::class);
+
+        $this->assertDatabaseCount('admins', 0);
+    }
 }

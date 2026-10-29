@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Admin;
-use App\Models\User;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -22,11 +21,8 @@ class DatabaseSeederTest extends TestCase
         $this->seed(DatabaseSeeder::class);
         $this->seed(DatabaseSeeder::class);
 
-        $this->assertDatabaseCount('users', 1);
+        $this->assertDatabaseCount('users', 0);
         $this->assertDatabaseCount('admins', 1);
-        $this->assertTrue(
-            User::query()->where('email', 'test@example.com')->exists()
-        );
         $this->assertTrue(
             Admin::query()->where('email', 'admin@zyuru.com')->exists()
         );
