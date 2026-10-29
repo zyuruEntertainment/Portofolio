@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminPasswordController;
 use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\AdminProjectController;
 use App\Http\Controllers\AdminSocialLinkController;
@@ -28,6 +29,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware('auth:admin')->group(function () {
         Route::get('dashboard', [AdminController::class, 'index'])->name('dashboard');
+        Route::get('password', [AdminPasswordController::class, 'edit'])->name('password.edit');
+        Route::put('password', [AdminPasswordController::class, 'update'])->name('password.update');
         Route::get('profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
         Route::put('profile', [AdminProfileController::class, 'update'])->name('profile.update');
         Route::resource('projects', AdminProjectController::class)->except(['index', 'show'])->parameters(['projects' => 'project']);
